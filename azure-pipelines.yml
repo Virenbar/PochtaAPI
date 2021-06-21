@@ -38,6 +38,7 @@ steps:
 #    configuration: '$(buildConfiguration)'
 
 - task: PowerShell@2
+  displayName: 'Version Script'
   inputs:
     targetType: 'inline'
     script: |

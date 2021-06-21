@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>Virenbar.PochtaAPI</id>
+    <version>1.0.0</version>
+    <title>PochtaAPI</title>
+    <authors>Virenbar</authors>
+    <owners>Virenbar</owners>
+    <license type="expression">MIT</license>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <projectUrl>https://github.com/Virenbar/PochtaAPI</projectUrl>
+    <repository type="git" url="https://github.com/Virenbar/PochtaAPI.git" />
+    <iconUrl>https://github.com/Virenbar/PochtaAPI/Icon/PochtaAPI.png</iconUrl>
+    <icon>PochtaAPI.png</icon>
+    <description>Library for pochta.ru API</description>
+    <summary>Library for pochta.ru API</summary>
+    <releaseNotes>See GitHub.</releaseNotes>
+    <copyright>Virenbar</copyright>
+    <dependencies>
+      <group targetFramework=".NETFramework4.5.2">
+        <dependency id="RestSharp" version="106.11.7" exclude="Build,Analyzers" />
+      </group>
+      <group targetFramework=".NETStandard2.0">
+        <dependency id="RestSharp" version="106.11.7" exclude="Build,Analyzers" />
+        <dependency id="System.ServiceModel.Duplex" version="4.4.4" exclude="Build,Analyzers" />
+        <dependency id="System.ServiceModel.Http" version="4.4.4" exclude="Build,Analyzers" />
+        <dependency id="System.ServiceModel.NetTcp" version="4.4.4" exclude="Build,Analyzers" />
+        <dependency id="System.ServiceModel.Primitives" version="4.4.4" exclude="Build,Analyzers" />
+        <dependency id="System.ServiceModel.Security" version="4.4.4" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="System.ServiceModel" targetFramework=".NETFramework4.5.2" />
+    </frameworkAssemblies>
+  </metadata>
+  <files>
+    <file src="Icon\PochtaAPI.png" target="" />
+  </files>
+</package>

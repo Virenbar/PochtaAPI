@@ -5,12 +5,21 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Virenbar</Authors>
     <PackageProjectUrl>https://github.com/Virenbar/PochtaAPI</PackageProjectUrl>
-    <PackageIcon>Icon/PochtaAPI.png</PackageIcon>
-    <AssemblyVersion>1.0.0</AssemblyVersion>
+    <PackageIcon>PochtaAPI.png</PackageIcon>
+    <Version>1.0.1</Version>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
+    <PackageId>Virenbar.PochtaAPI</PackageId>
+    <RepositoryUrl>https://github.com/Virenbar/PochtaAPI.git</RepositoryUrl>
+    <Description>Library for pochta.ru API</Description>
+    <Copyright>Virenbar</Copyright>
+    <RepositoryType>git</RepositoryType>
+    <PackageIconUrl>https://raw.githubusercontent.com/Virenbar/PochtaAPI/master/PochtaAPI/Icon/PochtaAPI.png</PackageIconUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
-  <PropertyGroup>
-    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.0|AnyCPU'">
+    <DebugType>embedded</DebugType>
+    <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   
   <ItemGroup>
@@ -33,7 +42,7 @@
   </ItemGroup>
   
   <ItemGroup>
-    <None Include="Icon/PochtaAPI.png" Pack="true" PackagePath="/" />
+    <None Include="Icon\PochtaAPI.png" Pack="true" PackagePath="" />
   </ItemGroup>
 
 </Project>

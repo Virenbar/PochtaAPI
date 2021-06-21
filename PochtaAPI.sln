@@ -3,11 +3,16 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.1525
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PochtaAPI", "PochtaAPI\PochtaAPI.csproj", "{11CBCD72-E5BD-4EF4-8EA5-22FC1197E96B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PochtaAPI", "PochtaAPI\PochtaAPI.csproj", "{11CBCD72-E5BD-4EF4-8EA5-22FC1197E96B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PochtaForm", "PochtaForm\PochtaForm.csproj", "{77650CAC-C473-4DE1-A53C-16B2C9FF673C}"
 	ProjectSection(ProjectDependencies) = postProject
 		{11CBCD72-E5BD-4EF4-8EA5-22FC1197E96B} = {11CBCD72-E5BD-4EF4-8EA5-22FC1197E96B}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1809A45D-8023-4519-A087-507FDF431FF9}"
+	ProjectSection(SolutionItems) = preProject
+		azure-pipelines.yml = azure-pipelines.yml
 	EndProjectSection
 EndProject
 Global

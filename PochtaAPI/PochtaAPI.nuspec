@@ -10,7 +10,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <projectUrl>https://github.com/Virenbar/PochtaAPI</projectUrl>
     <repository type="git" url="https://github.com/Virenbar/PochtaAPI.git" />
-    <iconUrl>https://github.com/Virenbar/PochtaAPI/Icon/PochtaAPI.png</iconUrl>
+    <iconUrl>https://raw.githubusercontent.com/Virenbar/PochtaAPI/master/PochtaAPI/Icon/PochtaAPI.png</iconUrl>
     <icon>PochtaAPI.png</icon>
     <description>Library for pochta.ru API</description>
     <summary>Library for pochta.ru API</summary>
@@ -34,6 +34,8 @@
     </frameworkAssemblies>
   </metadata>
   <files>
+    <file src="bin\Release\net452\PochtaAPI.*" target="lib/net452" />
+    <file src="bin\Release\netstandard2.0\PochtaAPI.*" target="lib/netstandard2.0" />
     <file src="Icon\PochtaAPI.png" target="" />
   </files>
 </package>

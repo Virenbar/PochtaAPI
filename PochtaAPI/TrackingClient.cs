@@ -1,6 +1,10 @@
 ﻿using Pochta;
 using PochtaAPI.Data;
+using PochtaAPI.Interfaces;
+using PochtaPacket;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace PochtaAPI
@@ -11,9 +15,10 @@ namespace PochtaAPI
 	/// <remarks>
 	/// https://tracking.pochta.ru/specification
 	/// </remarks>
-	public class TrackingClient
+	public class TrackingClient : IPochtaClient
 	{
 		private readonly AuthorizationHeader AH;
+		private readonly FederalClientClient FCC;
 		private readonly OperationHistory12Client OHC;
 
 		/// <summary>
@@ -24,8 +29,11 @@ namespace PochtaAPI
 		public TrackingClient(string Login, string Password)
 		{
 			OHC = new OperationHistory12Client();
-			AH = new AuthorizationHeader() { login = Login, password = Password };
+			AH = new AuthorizationHeader { login = Login, password = Password };
+			FCC = new FederalClientClient();
 		}
+
+		#region Одиночные методы
 
 		/// <summary>
 		/// Кол-во обращений к API
@@ -36,36 +44,83 @@ namespace PochtaAPI
 		/// Получить историю операций по отправлению
 		/// </summary>
 		/// <param name="TrackCode">Идентификатор РПО</param>
-		/// <returns></returns>
+		public MailItem GetHistory(string TrackCode)
+		{
+			return GetHistoryAsync(TrackCode, false).Result;
+		}
+
+		/// <summary>
+		/// Получить историю операций по отправлению
+		/// </summary>
+		/// <param name="TrackCode">Идентификатор РПО</param>
 		public Task<MailItem> GetHistoryAsync(string TrackCode)
 		{
 			return GetHistoryAsync(TrackCode, false);
 		}
 
-		private async Task<MailItem> GetHistoryAsync(string TrackCode, bool IsNote = false)
+		private async Task<MailItem> GetHistoryAsync(string TrackCode, bool IsNote)
 		{
-			if (!(TrackCode.Length == 13 || TrackCode.Length == 14)) { throw new ArgumentException("Некорретный идетификатор"); };
+			if (!(TrackCode.Length == 13 || TrackCode.Length == 14)) { throw new ArgumentException("Некорректный идентификатор"); }
 
-			var Responce = await HistoryAsync(TrackCode, false);
+			var Responce = await HistoryAsync(TrackCode, false).ConfigureAwait(false);
 			Usages++;
-			if (Responce.OperationHistoryData.Length == 0) { return null; };
+			if (Responce.OperationHistoryData.Length == 0) { return null; }
+			var MI = new MailItem(Responce);
 			if (IsNote)
 			{
-				var NoteResponce = await HistoryAsync(TrackCode, true);
+				var Note = await HistoryAsync(TrackCode, true).ConfigureAwait(false);
 				Usages++;
+				MI.NoteHistory = Note.OperationHistoryData.Select(O => new HistoryRecord(O)).ToList();
 			}
-			return new MailItem(Responce);
+			return MI;
 		}
 
 		private Task<getOperationHistoryResponse> HistoryAsync(string TrackCode, bool IsNote = false)
 		{
 			return OHC.getOperationHistoryAsync(
-				new OperationHistoryRequest()
+				new OperationHistoryRequest
 				{
 					Barcode = TrackCode,
 					MessageType = IsNote ? 1 : 0
 				},
 				AH);
 		}
+
+		#endregion Одиночные методы
+
+		#region Пакетные методы
+
+		/// <summary>
+		/// Получение информации об отправлениях по ранее полученному билету
+		/// </summary>
+		/// <param name="Ticket">Билет</param>
+		public async Task<Batch> GetBatchAsync(Ticket Ticket)
+		{
+			var R = await FCC.getResponseByTicketAsync(new getResponseByTicketRequest(Ticket.ID, AH.login, AH.password)).ConfigureAwait(false);
+			Usages++;
+			if (R.error.ErrorTypeID != null) { throw new InvalidOperationException(R.error.ErrorName); }
+			return new Batch(R.value);
+		}
+
+		/// <summary>
+		/// Получения билета на подготовку информации по списку идентификаторов отправлений
+		/// </summary>
+		/// <param name="TrackCodes">Перечисление трек кодов</param>
+		public async Task<Ticket> GetTicketAsync(IEnumerable<string> TrackCodes)
+		{
+			var File = new file { Item = TrackCodes.Select(S => new item { Barcode = S }).ToArray() };
+			var R = await FCC.getTicketAsync(
+				new getTicketRequest
+				{
+					request = File,
+					login = AH.login,
+					password = AH.password
+				}).ConfigureAwait(false);
+			Usages++;
+			if (R.error.ErrorTypeID != null) { throw new InvalidOperationException(R.error.ErrorName); }
+			return new Ticket(R.value);
+		}
+
+		#endregion Пакетные методы
 	}
 }

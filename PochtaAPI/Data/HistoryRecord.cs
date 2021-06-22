@@ -1,4 +1,5 @@
 ﻿using Pochta;
+using PochtaPacket;
 using System;
 
 namespace PochtaAPI.Data
@@ -13,9 +14,19 @@ namespace PochtaAPI.Data
 			Address = $"{OHR.AddressParameters.OperationAddress.Description} ({OHR.AddressParameters.OperationAddress.Index})";
 			Date = OHR.OperationParameters.OperDate;
 			Operation = OHR.OperationParameters.OperType.Name;
-			if (OHR.OperationParameters.OperAttr.Name.Length > 0) { Operation += $" ({ OHR.OperationParameters.OperAttr.Name})"; };
+			if (OHR.OperationParameters.OperAttr.Name.Length > 0) { Operation += $" ({ OHR.OperationParameters.OperAttr.Name})"; }
 			OperAttrID = OHR.OperationParameters.OperAttr.Id;
 			OperTypeID = OHR.OperationParameters.OperType.Id;
+			OperType = (OperType)OperTypeID;
+		}
+
+		internal HistoryRecord(operation O)
+		{
+			Date = DateTime.Parse(O.DateOper);
+			Operation = O.OperName;
+			OperAttrID = int.Parse(O.OperCtgID);
+			OperTypeID = int.Parse(O.OperTypeID);
+			OperType = (OperType)OperTypeID;
 		}
 
 		/// <summary>
@@ -39,10 +50,19 @@ namespace PochtaAPI.Data
 		public int OperAttrID { get; private set; }
 
 		/// <summary>
+		/// Тип операции
+		/// </summary>
+		public OperType OperType { get; private set; }
+
+		/// <summary>
 		/// Код операции
 		/// </summary>
 		public int OperTypeID { get; private set; }
 
+		/// <summary>
+		/// Описание записи о операции
+		/// </summary>
+		/// <returns></returns>
 		public override string ToString() => $"{Date}: {Operation}";
 	}
 }

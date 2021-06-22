@@ -1,10 +1,17 @@
-﻿using System;
+﻿using PochtaAPI.Data;
 using System.Collections.Generic;
-using System.Text;
+using System.Threading.Tasks;
 
 namespace PochtaAPI.Interfaces
 {
-	interface IPochtaClient
+	internal interface IPochtaClient
 	{
+		MailItem GetHistory(string TrackCode);
+
+		Task<MailItem> GetHistoryAsync(string TrackCode);
+
+		Task<Batch> GetBatchAsync(Ticket Ticket);
+
+		Task<Ticket> GetTicketAsync(IEnumerable<string> TrackCodes);
 	}
 }

@@ -1,4 +1,5 @@
 ﻿using Pochta;
+using PochtaPacket;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +22,12 @@ namespace PochtaAPI.Data
 			Type = First.ItemParameters.ComplexItemName;
 		}
 
+		internal MailItem(item Item)
+		{
+			History = Item.Operation.Select(I => new HistoryRecord(I)).ToList();
+			TrackCode = Item.Barcode;
+		}
+
 		/// <summary>
 		/// История операций
 		/// </summary>
@@ -29,7 +36,7 @@ namespace PochtaAPI.Data
 		/// <summary>
 		/// Статус получения
 		/// </summary>
-		public bool IsReceived { get => History.Last().OperTypeID == 2; }
+		public bool IsReceived { get => History.Last().OperType == OperType.Receiving; }
 
 		/// <summary>
 		/// Масса
@@ -49,7 +56,12 @@ namespace PochtaAPI.Data
 		/// <summary>
 		/// Дата отправки
 		/// </summary>
-		public DateTime SendDate { get => History.First().Date; }
+		public DateTime? SendDate { get => History.FirstOrDefault()?.Date; }
+
+		/// <summary>
+		/// Дата получения
+		/// </summary>
+		public DateTime? ReceiveDate { get => History.FirstOrDefault(H => H.OperTypeID == 2)?.Date; }
 
 		/// <summary>
 		/// Идентификатор
@@ -61,6 +73,6 @@ namespace PochtaAPI.Data
 		/// </summary>
 		public string Type { get; private set; }
 
-		internal List<HistoryRecord> NoteHistory { get; private set; }
+		internal List<HistoryRecord> NoteHistory { get; set; }
 	}
 }

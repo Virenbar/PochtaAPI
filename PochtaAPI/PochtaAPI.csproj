@@ -6,7 +6,7 @@
     <Authors>Virenbar</Authors>
     <PackageProjectUrl>https://github.com/Virenbar/PochtaAPI</PackageProjectUrl>
     <PackageIcon>PochtaAPI.png</PackageIcon>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
     <PackageId>Virenbar.PochtaAPI</PackageId>
     <RepositoryUrl>https://github.com/Virenbar/PochtaAPI.git</RepositoryUrl>
@@ -17,7 +17,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.0|AnyCPU'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DebugType>embedded</DebugType>
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
@@ -33,7 +33,7 @@
     <PackageReference Include="System.ServiceModel.Primitives" Version="4.4.*" />
     <PackageReference Include="System.ServiceModel.Security" Version="4.4.*" />
   </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)' == 'net452' ">
+  <ItemGroup Condition="'$(TargetFramework)' == 'net452'">
     <Reference Include="System.ServiceModel" />
   </ItemGroup>
   

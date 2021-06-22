@@ -40,15 +40,19 @@
 			this.label2 = new System.Windows.Forms.Label();
 			this.TB_Login = new System.Windows.Forms.TextBox();
 			this.BS_History = new System.Windows.Forms.BindingSource(this.components);
+			this.B_Batch = new System.Windows.Forms.Button();
+			this.panel1 = new System.Windows.Forms.Panel();
 			this.flowLayoutPanel1.SuspendLayout();
 			this.TLP.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.BS_History)).BeginInit();
+			this.panel1.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// TB_Track
 			// 
+			this.TB_Track.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.TB_Track.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::PochtaForm.Properties.Settings.Default, "LastTrack", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-			this.TB_Track.Location = new System.Drawing.Point(86, 140);
+			this.TB_Track.Location = new System.Drawing.Point(510, 3);
 			this.TB_Track.Name = "TB_Track";
 			this.TB_Track.Size = new System.Drawing.Size(233, 20);
 			this.TB_Track.TabIndex = 0;
@@ -56,19 +60,20 @@
 			// 
 			// PG_Result
 			// 
-			this.PG_Result.Dock = System.Windows.Forms.DockStyle.Bottom;
-			this.PG_Result.Location = new System.Drawing.Point(0, 186);
+			this.PG_Result.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.PG_Result.Location = new System.Drawing.Point(0, 79);
 			this.PG_Result.Name = "PG_Result";
-			this.PG_Result.Size = new System.Drawing.Size(800, 264);
+			this.PG_Result.Size = new System.Drawing.Size(827, 393);
 			this.PG_Result.TabIndex = 1;
 			// 
 			// B_Search
 			// 
-			this.B_Search.Location = new System.Drawing.Point(466, 102);
+			this.B_Search.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.B_Search.Location = new System.Drawing.Point(749, 3);
 			this.B_Search.Name = "B_Search";
 			this.B_Search.Size = new System.Drawing.Size(75, 23);
 			this.B_Search.TabIndex = 2;
-			this.B_Search.Text = "button1";
+			this.B_Search.Text = "Search";
 			this.B_Search.UseVisualStyleBackColor = true;
 			this.B_Search.Click += new System.EventHandler(this.B_Search_Click);
 			// 
@@ -101,7 +106,7 @@
 			this.flowLayoutPanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
 			this.flowLayoutPanel1.Controls.Add(this.TLP);
 			this.flowLayoutPanel1.Controls.Add(this.B_Unlock);
-			this.flowLayoutPanel1.Location = new System.Drawing.Point(86, 30);
+			this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 3);
 			this.flowLayoutPanel1.Name = "flowLayoutPanel1";
 			this.flowLayoutPanel1.Size = new System.Drawing.Size(278, 58);
 			this.flowLayoutPanel1.TabIndex = 7;
@@ -154,15 +159,36 @@
 			this.TB_Login.TabIndex = 3;
 			this.TB_Login.Text = global::PochtaForm.Properties.Settings.Default.Login;
 			// 
+			// B_Batch
+			// 
+			this.B_Batch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.B_Batch.Location = new System.Drawing.Point(749, 32);
+			this.B_Batch.Name = "B_Batch";
+			this.B_Batch.Size = new System.Drawing.Size(75, 23);
+			this.B_Batch.TabIndex = 8;
+			this.B_Batch.Text = "Batch";
+			this.B_Batch.UseVisualStyleBackColor = true;
+			this.B_Batch.Click += new System.EventHandler(this.B_Batch_Click);
+			// 
+			// panel1
+			// 
+			this.panel1.Controls.Add(this.B_Search);
+			this.panel1.Controls.Add(this.flowLayoutPanel1);
+			this.panel1.Controls.Add(this.B_Batch);
+			this.panel1.Controls.Add(this.TB_Track);
+			this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+			this.panel1.Location = new System.Drawing.Point(0, 0);
+			this.panel1.Name = "panel1";
+			this.panel1.Size = new System.Drawing.Size(827, 79);
+			this.panel1.TabIndex = 9;
+			// 
 			// FormMain
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(800, 450);
-			this.Controls.Add(this.flowLayoutPanel1);
-			this.Controls.Add(this.B_Search);
+			this.ClientSize = new System.Drawing.Size(827, 472);
 			this.Controls.Add(this.PG_Result);
-			this.Controls.Add(this.TB_Track);
+			this.Controls.Add(this.panel1);
 			this.Name = "FormMain";
 			this.Text = "Form1";
 			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormMain_FormClosed);
@@ -172,8 +198,9 @@
 			this.TLP.ResumeLayout(false);
 			this.TLP.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.BS_History)).EndInit();
+			this.panel1.ResumeLayout(false);
+			this.panel1.PerformLayout();
 			this.ResumeLayout(false);
-			this.PerformLayout();
 
 		}
 
@@ -190,6 +217,8 @@
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.TableLayoutPanel TLP;
 		private System.Windows.Forms.BindingSource BS_History;
+		private System.Windows.Forms.Button B_Batch;
+		private System.Windows.Forms.Panel panel1;
 	}
 }
 

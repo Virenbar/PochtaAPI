@@ -1,4 +1,5 @@
 ﻿using Pochta;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -26,6 +27,11 @@ namespace PochtaAPI.Data
 		public List<HistoryRecord> History { get; private set; }
 
 		/// <summary>
+		/// Статус получения
+		/// </summary>
+		public bool IsReceived { get => History.Last().OperTypeID == 2; }
+
+		/// <summary>
 		/// Масса
 		/// </summary>
 		public int Mass { get; private set; }
@@ -41,6 +47,11 @@ namespace PochtaAPI.Data
 		public string Recipient { get; private set; }
 
 		/// <summary>
+		/// Дата отправки
+		/// </summary>
+		public DateTime SendDate { get => History.First().Date; }
+
+		/// <summary>
 		/// Идентификатор
 		/// </summary>
 		public string TrackCode { get; private set; }
@@ -49,11 +60,6 @@ namespace PochtaAPI.Data
 		/// Тип
 		/// </summary>
 		public string Type { get; private set; }
-
-		/// <summary>
-		/// Статус получения
-		/// </summary>
-		public bool IsReceived { get => History.Last().OperTypeID == 2; }
 
 		internal List<HistoryRecord> NoteHistory { get; private set; }
 	}

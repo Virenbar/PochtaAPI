@@ -48,6 +48,12 @@ steps:
       Write-Host "##vso[task.setvariable variable=Version]$version"
       Write-Host "##vso[build.updatebuildnumber]$version-$(Build.BuildId)"
 
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'pack'
+    packagesToPack: '**/PochtaAPI.csproj'
+    versioningScheme: 'off'
+
 #- task: NuGetCommand@2
 #  inputs:
 #    command: 'pack'

@@ -38,28 +38,15 @@ steps:
 #    configuration: '$(buildConfiguration)'
 
 - task: PowerShell@2
-  displayName: 'Version Script'
+  displayName: 'SetVersion Script'
   inputs:
-    targetType: 'inline'
-    script: |
-      $xml = [Xml] (Get-Content .\PochtaAPI\PochtaAPI.csproj)
-      $version = $xml.Project.PropertyGroup.Version
-      Write-Host "Version: $version"
-      Write-Host "##vso[task.setvariable variable=Version]$version"
-      Write-Host "##vso[build.updatebuildnumber]$version-$(Build.BuildId)"
+    filePath: 'Azure/SetVersion.ps1'
 
 - task: DotNetCoreCLI@2
   inputs:
     command: 'pack'
     packagesToPack: '**/PochtaAPI.csproj'
     versioningScheme: 'off'
-
-#- task: NuGetCommand@2
-#  inputs:
-#    command: 'pack'
-#    packagesToPack: '**/*.nuspec'
-#    versioningScheme: 'byEnvVar'
-#    versionEnvVar: 'Version'
 
 - task: PublishBuildArtifacts@1
   inputs:

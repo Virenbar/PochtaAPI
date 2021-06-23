@@ -5,33 +5,93 @@ using System.Threading.Tasks;
 
 namespace PochtaAPI
 {
-	internal class SenderClient
-	{
-		private readonly IRestClient Client;
+    /// <summary>
+    /// Клиент для работы с API отправки
+    /// </summary>
+    public class SenderClient
+    {
+        private readonly IRestClient Client;
+        private const string URL = "https://otpravka-api.pochta.ru/1.0";
 
-		public SenderClient(string Token, string Login, string Password) : this()
-		{
-			var Key = Convert.ToBase64String(Encoding.UTF8.GetBytes($"{Login}:{Password}"));
-			Client.AddDefaultHeader("Authorization", Token);
-			Client.AddDefaultHeader("X-User-Authorization", Key);
-		}
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="Token"></param>
+        /// <param name="Login"></param>
+        /// <param name="Password"></param>
+        public SenderClient(string Token, string Login, string Password) : this("", Convert.ToBase64String(Encoding.UTF8.GetBytes($"{Login}:{Password}"))) { }
 
-		public SenderClient(string Token, string Key) : this()
-		{
-			Client.AddDefaultHeader("Authorization", Token);
-			Client.AddDefaultHeader("X-User-Authorization", Key);
-		}
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="Token"></param>
+        /// <param name="Key"></param>
+        public SenderClient(string Token, string Key)
+        {
+            Client = new RestClient(URL);
+            Client.AddDefaultHeader("Content-Type", "application/json;charset=UTF-8");
+            Client.AddDefaultHeader("Authorization", "AccessToken " + Token);
+            Client.AddDefaultHeader("X-User-Authorization", "Basic " + Key);
+        }
 
-		private SenderClient()
-		{
-			Client = new RestClient("https://otpravka-api.pochta.ru");
-			Client.AddDefaultHeader("Content-Type", "application/json;charset=UTF-8");
-		}
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="ID"></param>
+        /// <returns></returns>
+        public async Task<string> GetOrderAsync(int ID)
+        {
+            IRestRequest Request = new RestRequest($"backlog/{ID}", Method.GET);
+            var R = await Client.ExecuteGetAsync(Request);
+            return R.Content;
+        }
 
-		public async Task SearchAsync()
-		{
-			IRestRequest Request = new RestRequest("/1.0/backlog/search", Method.GET);
-			_ = await Client.ExecuteGetAsync(Request);
-		}
-	}
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="ID"></param>
+        /// <returns></returns>
+        public async Task<string> GetOrderAsync(string ID)
+        {
+            IRestRequest Request = new RestRequest("backlog/search", Method.GET);
+            Request.AddQueryParameter("query", "");
+            var R = await Client.ExecuteGetAsync(Request);
+            return R.Content;
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <returns></returns>
+        public async Task<string> GetBatchAsync()
+        {
+            IRestRequest Request = new RestRequest("batch", Method.GET);
+            var R = await Client.ExecuteGetAsync(Request);
+            return R.Content;
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="Name"></param>
+        /// <returns></returns>
+        public async Task<string> GetBatchAsync(string Name)
+        {
+            IRestRequest Request = new RestRequest($"batch/{Name}", Method.GET);
+            var R = await Client.ExecuteGetAsync(Request);
+            return R.Content;
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="Name"></param>
+        /// <returns></returns>
+        public async Task<string> GetBatchOrdersAsync(string Name)
+        {
+            IRestRequest Request = new RestRequest($"batch/{Name}/shipment", Method.GET);
+            var R = await Client.ExecuteGetAsync(Request);
+            return R.Content;
+        }
+    }
 }

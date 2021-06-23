@@ -15,7 +15,7 @@ namespace PochtaAPI
 	/// <remarks>
 	/// https://tracking.pochta.ru/specification
 	/// </remarks>
-	public class TrackingClient : IPochtaClient
+	public class TrackingClient : ITrackingClient
 	{
 		private readonly AuthorizationHeader AH;
 		private readonly FederalClientClient FCC;
@@ -33,12 +33,12 @@ namespace PochtaAPI
 			FCC = new FederalClientClient();
 		}
 
-		#region Одиночные методы
-
 		/// <summary>
 		/// Кол-во обращений к API
 		/// </summary>
 		public int Usages { get; private set; }
+
+		#region Одиночные методы
 
 		/// <summary>
 		/// Получить историю операций по отправлению
@@ -103,7 +103,7 @@ namespace PochtaAPI
 		}
 
 		/// <summary>
-		/// Получения билета на подготовку информации по списку идентификаторов отправлений
+		/// Получение билета на подготовку информации по списку идентификаторов отправлений
 		/// </summary>
 		/// <param name="TrackCodes">Перечисление трек кодов</param>
 		public async Task<Ticket> GetTicketAsync(IEnumerable<string> TrackCodes)

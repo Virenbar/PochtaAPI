@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace PochtaAPI.Interfaces
 {
-	internal interface IPochtaClient
+	internal interface ITrackingClient
 	{
 		MailItem GetHistory(string TrackCode);
 

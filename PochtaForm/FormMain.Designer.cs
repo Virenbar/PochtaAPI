@@ -29,41 +29,39 @@
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
-			this.TB_Track = new System.Windows.Forms.TextBox();
 			this.PG_Result = new System.Windows.Forms.PropertyGrid();
 			this.B_Search = new System.Windows.Forms.Button();
 			this.B_Unlock = new System.Windows.Forms.Button();
 			this.label1 = new System.Windows.Forms.Label();
 			this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
 			this.TLP = new System.Windows.Forms.TableLayoutPanel();
+			this.TB_Key = new System.Windows.Forms.TextBox();
 			this.TB_Password = new System.Windows.Forms.TextBox();
+			this.TB_Token = new System.Windows.Forms.TextBox();
+			this.label3 = new System.Windows.Forms.Label();
 			this.label2 = new System.Windows.Forms.Label();
+			this.label4 = new System.Windows.Forms.Label();
 			this.TB_Login = new System.Windows.Forms.TextBox();
 			this.BS_History = new System.Windows.Forms.BindingSource(this.components);
 			this.B_Batch = new System.Windows.Forms.Button();
 			this.panel1 = new System.Windows.Forms.Panel();
+			this.B_Order = new System.Windows.Forms.Button();
+			this.TB_Track = new System.Windows.Forms.TextBox();
+			this.B_SenderBatch = new System.Windows.Forms.Button();
+			this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
 			this.flowLayoutPanel1.SuspendLayout();
 			this.TLP.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.BS_History)).BeginInit();
 			this.panel1.SuspendLayout();
+			this.flowLayoutPanel2.SuspendLayout();
 			this.SuspendLayout();
-			// 
-			// TB_Track
-			// 
-			this.TB_Track.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.TB_Track.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::PochtaForm.Properties.Settings.Default, "LastTrack", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-			this.TB_Track.Location = new System.Drawing.Point(510, 3);
-			this.TB_Track.Name = "TB_Track";
-			this.TB_Track.Size = new System.Drawing.Size(233, 20);
-			this.TB_Track.TabIndex = 0;
-			this.TB_Track.Text = global::PochtaForm.Properties.Settings.Default.LastTrack;
 			// 
 			// PG_Result
 			// 
 			this.PG_Result.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.PG_Result.Location = new System.Drawing.Point(0, 79);
+			this.PG_Result.Location = new System.Drawing.Point(0, 141);
 			this.PG_Result.Name = "PG_Result";
-			this.PG_Result.Size = new System.Drawing.Size(827, 393);
+			this.PG_Result.Size = new System.Drawing.Size(827, 331);
 			this.PG_Result.TabIndex = 1;
 			// 
 			// B_Search
@@ -82,7 +80,7 @@
 			this.B_Unlock.Anchor = System.Windows.Forms.AnchorStyles.None;
 			this.B_Unlock.AutoSize = true;
 			this.B_Unlock.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-			this.B_Unlock.Location = new System.Drawing.Point(224, 17);
+			this.B_Unlock.Location = new System.Drawing.Point(224, 43);
 			this.B_Unlock.Name = "B_Unlock";
 			this.B_Unlock.Size = new System.Drawing.Size(51, 23);
 			this.B_Unlock.TabIndex = 5;
@@ -108,7 +106,7 @@
 			this.flowLayoutPanel1.Controls.Add(this.B_Unlock);
 			this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 3);
 			this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-			this.flowLayoutPanel1.Size = new System.Drawing.Size(278, 58);
+			this.flowLayoutPanel1.Size = new System.Drawing.Size(278, 110);
 			this.flowLayoutPanel1.TabIndex = 7;
 			// 
 			// TLP
@@ -117,17 +115,33 @@
 			this.TLP.ColumnCount = 2;
 			this.TLP.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
 			this.TLP.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+			this.TLP.Controls.Add(this.TB_Key, 1, 3);
 			this.TLP.Controls.Add(this.TB_Password, 1, 1);
+			this.TLP.Controls.Add(this.TB_Token, 1, 2);
+			this.TLP.Controls.Add(this.label3, 0, 3);
 			this.TLP.Controls.Add(this.label2, 0, 1);
+			this.TLP.Controls.Add(this.label4, 0, 2);
 			this.TLP.Controls.Add(this.label1, 0, 0);
 			this.TLP.Controls.Add(this.TB_Login, 1, 0);
 			this.TLP.Location = new System.Drawing.Point(3, 3);
 			this.TLP.Name = "TLP";
-			this.TLP.RowCount = 2;
+			this.TLP.RowCount = 4;
 			this.TLP.RowStyles.Add(new System.Windows.Forms.RowStyle());
 			this.TLP.RowStyles.Add(new System.Windows.Forms.RowStyle());
-			this.TLP.Size = new System.Drawing.Size(215, 52);
+			this.TLP.RowStyles.Add(new System.Windows.Forms.RowStyle());
+			this.TLP.RowStyles.Add(new System.Windows.Forms.RowStyle());
+			this.TLP.Size = new System.Drawing.Size(215, 104);
 			this.TLP.TabIndex = 8;
+			// 
+			// TB_Key
+			// 
+			this.TB_Key.Anchor = System.Windows.Forms.AnchorStyles.None;
+			this.TB_Key.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::PochtaForm.Properties.Settings.Default, "Key", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+			this.TB_Key.Location = new System.Drawing.Point(62, 81);
+			this.TB_Key.Name = "TB_Key";
+			this.TB_Key.Size = new System.Drawing.Size(150, 20);
+			this.TB_Key.TabIndex = 4;
+			this.TB_Key.Text = global::PochtaForm.Properties.Settings.Default.Key;
 			// 
 			// TB_Password
 			// 
@@ -139,6 +153,26 @@
 			this.TB_Password.TabIndex = 4;
 			this.TB_Password.Text = global::PochtaForm.Properties.Settings.Default.Password;
 			// 
+			// TB_Token
+			// 
+			this.TB_Token.Anchor = System.Windows.Forms.AnchorStyles.None;
+			this.TB_Token.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::PochtaForm.Properties.Settings.Default, "Token", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+			this.TB_Token.Location = new System.Drawing.Point(62, 55);
+			this.TB_Token.Name = "TB_Token";
+			this.TB_Token.Size = new System.Drawing.Size(150, 20);
+			this.TB_Token.TabIndex = 3;
+			this.TB_Token.Text = global::PochtaForm.Properties.Settings.Default.Token;
+			// 
+			// label3
+			// 
+			this.label3.Anchor = System.Windows.Forms.AnchorStyles.Right;
+			this.label3.AutoSize = true;
+			this.label3.Location = new System.Drawing.Point(31, 84);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(25, 13);
+			this.label3.TabIndex = 7;
+			this.label3.Text = "Key";
+			// 
 			// label2
 			// 
 			this.label2.Anchor = System.Windows.Forms.AnchorStyles.Right;
@@ -148,6 +182,16 @@
 			this.label2.Size = new System.Drawing.Size(53, 13);
 			this.label2.TabIndex = 7;
 			this.label2.Text = "Password";
+			// 
+			// label4
+			// 
+			this.label4.Anchor = System.Windows.Forms.AnchorStyles.Right;
+			this.label4.AutoSize = true;
+			this.label4.Location = new System.Drawing.Point(18, 58);
+			this.label4.Name = "label4";
+			this.label4.Size = new System.Drawing.Size(38, 13);
+			this.label4.TabIndex = 6;
+			this.label4.Text = "Token";
 			// 
 			// TB_Login
 			// 
@@ -172,6 +216,7 @@
 			// 
 			// panel1
 			// 
+			this.panel1.Controls.Add(this.flowLayoutPanel2);
 			this.panel1.Controls.Add(this.B_Search);
 			this.panel1.Controls.Add(this.flowLayoutPanel1);
 			this.panel1.Controls.Add(this.B_Batch);
@@ -179,8 +224,49 @@
 			this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
 			this.panel1.Location = new System.Drawing.Point(0, 0);
 			this.panel1.Name = "panel1";
-			this.panel1.Size = new System.Drawing.Size(827, 79);
+			this.panel1.Size = new System.Drawing.Size(827, 141);
 			this.panel1.TabIndex = 9;
+			// 
+			// B_Order
+			// 
+			this.B_Order.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.B_Order.Location = new System.Drawing.Point(3, 3);
+			this.B_Order.Name = "B_Order";
+			this.B_Order.Size = new System.Drawing.Size(75, 23);
+			this.B_Order.TabIndex = 9;
+			this.B_Order.Text = "Otpravka";
+			this.B_Order.UseVisualStyleBackColor = true;
+			this.B_Order.Click += new System.EventHandler(this.B_Order_Click);
+			// 
+			// TB_Track
+			// 
+			this.TB_Track.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.TB_Track.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::PochtaForm.Properties.Settings.Default, "LastTrack", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+			this.TB_Track.Location = new System.Drawing.Point(510, 3);
+			this.TB_Track.Name = "TB_Track";
+			this.TB_Track.Size = new System.Drawing.Size(233, 20);
+			this.TB_Track.TabIndex = 0;
+			this.TB_Track.Text = global::PochtaForm.Properties.Settings.Default.LastTrack;
+			// 
+			// B_SenderBatch
+			// 
+			this.B_SenderBatch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.B_SenderBatch.Location = new System.Drawing.Point(84, 3);
+			this.B_SenderBatch.Name = "B_SenderBatch";
+			this.B_SenderBatch.Size = new System.Drawing.Size(75, 23);
+			this.B_SenderBatch.TabIndex = 10;
+			this.B_SenderBatch.Text = "Batch";
+			this.B_SenderBatch.UseVisualStyleBackColor = true;
+			this.B_SenderBatch.Click += new System.EventHandler(this.B_SenderBatch_Click);
+			// 
+			// flowLayoutPanel2
+			// 
+			this.flowLayoutPanel2.Controls.Add(this.B_Order);
+			this.flowLayoutPanel2.Controls.Add(this.B_SenderBatch);
+			this.flowLayoutPanel2.Location = new System.Drawing.Point(316, 12);
+			this.flowLayoutPanel2.Name = "flowLayoutPanel2";
+			this.flowLayoutPanel2.Size = new System.Drawing.Size(168, 112);
+			this.flowLayoutPanel2.TabIndex = 11;
 			// 
 			// FormMain
 			// 
@@ -200,6 +286,7 @@
 			((System.ComponentModel.ISupportInitialize)(this.BS_History)).EndInit();
 			this.panel1.ResumeLayout(false);
 			this.panel1.PerformLayout();
+			this.flowLayoutPanel2.ResumeLayout(false);
 			this.ResumeLayout(false);
 
 		}
@@ -219,6 +306,13 @@
 		private System.Windows.Forms.BindingSource BS_History;
 		private System.Windows.Forms.Button B_Batch;
 		private System.Windows.Forms.Panel panel1;
-	}
+		private System.Windows.Forms.TextBox TB_Key;
+		private System.Windows.Forms.Label label3;
+		private System.Windows.Forms.Label label4;
+		private System.Windows.Forms.TextBox TB_Token;
+		private System.Windows.Forms.Button B_Order;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
+        private System.Windows.Forms.Button B_SenderBatch;
+    }
 }
 

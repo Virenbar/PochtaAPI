@@ -11,5 +11,11 @@
     <Setting Name="LastTrack" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="Token" Type="System.String" Scope="User">
+      <Value Profile="(Default)">T</Value>
+    </Setting>
+    <Setting Name="Key" Type="System.String" Scope="User">
+      <Value Profile="(Default)">K</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

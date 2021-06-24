@@ -4,16 +4,16 @@
 
 ## Аутентификация
 Для использования сервисов Почты России, необходимы аутентификационные данные.  
-- [Логин и пароль](https://tracking.pochta.ru/access-settings) для трекинга
-- [Токен](https://otpravka.pochta.ru/specification#/authorization-token) и [ключ](https://otpravka.pochta.ru/specification#/authorization-key) для отправки
+-   [Логин и пароль](https://tracking.pochta.ru/access-settings) для трекинга
+-   [Токен](https://otpravka.pochta.ru/specification#/authorization-token) и [ключ](https://otpravka.pochta.ru/specification#/authorization-key) для отправки
 
 ## Трекинг почтовых отправлений (РПО)
 Реализует функции [API Почты России]( https://tracking.pochta.ru/specification) для работы с отправлениями.  
 Для работы используется экземпляр класса **TrackingClient**.  
 
 **Входные параметры:**
-- *\<Login>* - Логин
-- *\<Password>* - Пароль
+-   *\<Login>* - Логин
+-   *\<Password>* - Пароль
 
 ### Единичный доступ
 Метод **GetHistoryAsync** используется для получения информации о конкретном отправлении.  

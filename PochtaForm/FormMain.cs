@@ -16,7 +16,7 @@ namespace PochtaForm
         private async void B_Batch_Click(object sender, EventArgs e)
         {
             TrackingClient TC = new TrackingClient(Properties.Settings.Default.Login, Properties.Settings.Default.Password);
-            Ticket T = await TC.GetTicketAsync(new List<string>() { "", "" });
+            Ticket T = await TC.GetTicketAsync(new List<string> { "", "" });
         }
 
         private async void B_Search_Click(object sender, EventArgs e)
@@ -47,13 +47,13 @@ namespace PochtaForm
         private async void B_Order_Click(object sender, EventArgs e)
         {
             var SC = new SenderClient(Properties.Settings.Default.Token, Properties.Settings.Default.Key);
-            var S = await SC.GetOrderAsync(TB_Track.Text);
+            _ = await SC.GetOrderAsync(TB_Track.Text);
         }
 
         private async void B_SenderBatch_Click(object sender, EventArgs e)
         {
             var SC = new SenderClient(Properties.Settings.Default.Token, Properties.Settings.Default.Key);
-            var S = await SC.GetBatchOrdersAsync("15");
+            _ = await SC.GetBatchOrdersAsync("15");
         }
     }
 }

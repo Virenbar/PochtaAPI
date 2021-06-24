@@ -46,13 +46,13 @@ namespace PochtaForm
 
         private async void B_Order_Click(object sender, EventArgs e)
         {
-            var SC = new SenderClient(Properties.Settings.Default.Token, Properties.Settings.Default.Key);
+            var SC = new SendingClient(Properties.Settings.Default.Token, Properties.Settings.Default.Key);
             _ = await SC.GetOrderAsync(TB_Track.Text);
         }
 
         private async void B_SenderBatch_Click(object sender, EventArgs e)
         {
-            var SC = new SenderClient(Properties.Settings.Default.Token, Properties.Settings.Default.Key);
+            var SC = new SendingClient(Properties.Settings.Default.Token, Properties.Settings.Default.Key);
             _ = await SC.GetBatchOrdersAsync("15");
         }
     }

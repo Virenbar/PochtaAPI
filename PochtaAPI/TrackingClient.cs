@@ -63,13 +63,11 @@ namespace PochtaAPI
             if (!(TrackCode.Length == 13 || TrackCode.Length == 14)) { throw new ArgumentException("Некорректный идентификатор"); }
 
             var Responce = await HistoryAsync(TrackCode, false).ConfigureAwait(false);
-            Usages++;
             if (Responce.OperationHistoryData.Length == 0) { return null; }
             var MI = new MailItem(Responce);
             if (IsNote)
             {
                 var Note = await HistoryAsync(TrackCode, true).ConfigureAwait(false);
-                Usages++;
                 MI.NoteHistory = Note.OperationHistoryData.Select(O => new HistoryRecord(O)).ToList();
             }
             return MI;
@@ -77,13 +75,15 @@ namespace PochtaAPI
 
         private Task<getOperationHistoryResponse> HistoryAsync(string TrackCode, bool IsNote)
         {
-            return OHC.getOperationHistoryAsync(
+            var R = OHC.getOperationHistoryAsync(
                 new OperationHistoryRequest
                 {
                     Barcode = TrackCode,
                     MessageType = IsNote ? 1 : 0
                 },
                 AH);
+            Usages++;
+            return R;
         }
 
         #endregion Одиночные методы

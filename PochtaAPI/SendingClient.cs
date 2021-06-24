@@ -8,7 +8,7 @@ namespace PochtaAPI
     /// <summary>
     /// Клиент для работы с API отправки
     /// </summary>
-    public class SenderClient
+    public class SendingClient
     {
         private readonly IRestClient Client;
         private const string URL = "https://otpravka-api.pochta.ru/1.0";
@@ -19,14 +19,14 @@ namespace PochtaAPI
         /// <param name="Token"></param>
         /// <param name="Login"></param>
         /// <param name="Password"></param>
-        public SenderClient(string Token, string Login, string Password) : this("", Convert.ToBase64String(Encoding.UTF8.GetBytes($"{Login}:{Password}"))) { }
+        public SendingClient(string Token, string Login, string Password) : this("", Convert.ToBase64String(Encoding.UTF8.GetBytes($"{Login}:{Password}"))) { }
 
         /// <summary>
         ///
         /// </summary>
         /// <param name="Token"></param>
         /// <param name="Key"></param>
-        public SenderClient(string Token, string Key)
+        public SendingClient(string Token, string Key)
         {
             Client = new RestClient(URL);
             Client.AddDefaultHeader("Content-Type", "application/json;charset=UTF-8");

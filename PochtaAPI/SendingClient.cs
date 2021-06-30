@@ -19,7 +19,7 @@ namespace PochtaAPI
         /// <param name="Token"></param>
         /// <param name="Login"></param>
         /// <param name="Password"></param>
-        public SendingClient(string Token, string Login, string Password) : this("", Convert.ToBase64String(Encoding.UTF8.GetBytes($"{Login}:{Password}"))) { }
+        public SendingClient(string Token, string Login, string Password) : this(Token, Convert.ToBase64String(Encoding.UTF8.GetBytes($"{Login}:{Password}"))) { }
 
         /// <summary>
         ///

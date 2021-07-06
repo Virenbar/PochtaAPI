@@ -8,7 +8,7 @@
 -   [Токен](https://otpravka.pochta.ru/specification#/authorization-token) и [ключ](https://otpravka.pochta.ru/specification#/authorization-key) для отправки
 
 ## Трекинг почтовых отправлений (РПО)
-Реализует функции [API Почты России]( https://tracking.pochta.ru/specification) для работы с отправлениями.  
+Реализует функции [API Почты России](https://tracking.pochta.ru/specification) для работы с отправлениями.  
 Для работы используется экземпляр класса **TrackingClient**.  
 
 **Входные параметры:**
@@ -41,3 +41,15 @@ Ticket T = await TC.GetTicketAsync(new List<string>() { <TrackCode1>, <TrackCode
 //Подождать мин. 15 минут
 Batch B = await TC.GetBatchAsync(T.ID);
 ```
+
+## Отправка почтовых отправлений (РПО)
+Реализует функции [API Почты России](https://otpravka.pochta.ru/specification#/main) для работы с отправлениями.  
+Для работы используется экземпляр класса **SendingClient**.  
+
+**Входные параметры:**
+-   *\<Token>* - Токен
+-   *\<Key>* - Ключ
+
+-   *\<Token>* - Токен
+-   *\<Login>* - Логин
+-   *\<Password>* - Пароль

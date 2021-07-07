@@ -60,6 +60,7 @@ namespace PochtaForm
         private async void B_Batch_Click(object sender, EventArgs e)
         {
             Ticket T = await TC.GetTicketAsync(new List<string> { "", "" });
+            SetResult(T);
         }
 
         private async void B_Search_Click(object sender, EventArgs e)

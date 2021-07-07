@@ -46,11 +46,9 @@ namespace PochtaAPI
 
         private Task<IRestResponse> CallAPI(Method Method, string Resource) { return CallAPI(Method, Resource, null); }
 
-        private Task<IRestResponse<T>> CallAPI<T>(string Resource) { return CallAPI<T>(Method.GET, Resource, null); }
+        private Task<T> CallAPI<T>(string Resource) { return CallAPI<T>(Method.GET, Resource, null); }
 
-        private Task<IRestResponse<T>> CallAPI<T>(Method Method, string Resource) { return CallAPI<T>(Method, Resource, null); }
-
-        private Task<IRestResponse<T>> CallAPI<T>(string Resource, object Body) { return CallAPI<T>(Method.GET, Resource, Body); }
+        private Task<T> CallAPI<T>(string Resource, object Body) { return CallAPI<T>(Method.GET, Resource, Body); }
 
         private async Task<IRestResponse> CallAPI(Method Method, string Resource, object Body)
         {
@@ -60,10 +58,7 @@ namespace PochtaAPI
                 case Method.GET:
                     {
                         IRestRequest Request = new RestRequest(Resource, Method.GET);
-                        if (Body != null)
-                        {
-                            foreach (var KVPair in (Dictionary<string, string>)Body) { if (KVPair.Value != "") { Request.AddQueryParameter(KVPair.Key, KVPair.Value); } }
-                        }
+                        Request.ApplyQuery((Dictionary<string, string>)Body);
                         R = await Client.ExecuteGetAsync(Request);
                         break;
                     }
@@ -76,23 +71,20 @@ namespace PochtaAPI
                         R = await Client.ExecutePostAsync(Request).ConfigureAwait(false);
                         break;
                     }
-                default: break;
+                default: throw new InvalidOperationException($"Этому здесь не место: {Method}");
             }
             return R;
         }
 
-        private async Task<IRestResponse<T>> CallAPI<T>(Method Method, string Resource, object Body)
+        private async Task<T> CallAPI<T>(Method Method, string Resource, object Body)
         {
             IRestResponse<T> R = null;
             switch (Method)
             {
                 case Method.GET:
                     {
-                        IRestRequest Request = new RestRequest(Resource, Method);
-                        if (Body != null)
-                        {
-                            foreach (var KVPair in (Dictionary<string, string>)Body) { if (KVPair.Value != "") { Request.AddQueryParameter(KVPair.Key, KVPair.Value); } }
-                        }
+                        IRestRequest Request = new RestRequest(Resource, Method.GET);
+                        Request.ApplyQuery((Dictionary<string, string>)Body);
                         R = await Client.ExecuteGetAsync<T>(Request);
                         break;
                     }
@@ -105,9 +97,9 @@ namespace PochtaAPI
                         R = await Client.ExecutePostAsync<T>(Request).ConfigureAwait(false);
                         break;
                     }
-                default: throw new InvalidOperationException("Вам здесь не рады");
+                default: throw new InvalidOperationException($"Этому здесь не место: {Method}");
             }
-            return R;
+            return R.Data;
         }
 
         private Task CallAPIDownload(string Resource, string Target)
@@ -118,15 +110,9 @@ namespace PochtaAPI
                 {
                     IRestRequest Request = new RestRequest(Resource, Method.GET)
                     {
-                        ResponseWriter = responseStream =>
-                        {
-                            using (responseStream)
-                            {
-                                responseStream.CopyTo(writer);
-                            }
-                        }
+                        ResponseWriter = responseStream => { using (responseStream) { responseStream.CopyTo(writer); } }
                     };
-                    var R = Client.DownloadData(Request);
+                    _ = Client.DownloadData(Request);
                 }
             });
         }
@@ -140,10 +126,9 @@ namespace PochtaAPI
         /// </summary>
         /// <param name="ID">Внутренний идентификатор отправления</param>
         /// <remarks>https://otpravka.pochta.ru/specification#/orders-search_order_byid</remarks>
-        public async Task<Order> GetOrderByID(int ID)
+        public Task<Order> GetOrderByID(int ID)
         {
-            var R = await CallAPI<Order>($"backlog/{ID}");
-            return R.Data;
+            return CallAPI<Order>($"backlog/{ID}");
         }
 
         /// <summary>
@@ -151,11 +136,10 @@ namespace PochtaAPI
         /// </summary>
         /// <param name="Query">Буквенно-цифровой идентификатор отправления</param>
         /// <remarks>https://otpravka.pochta.ru/specification#/orders-search_order</remarks>
-        public async Task<List<Order>> GetOrderByID(string Query)
+        public Task<List<Order>> GetOrderByID(string Query)
         {
             var D = new Dictionary<string, string> { { "query", Query } };
-            var R = await CallAPI<List<Order>>("backlog/search", D);
-            return R.Data;
+            return CallAPI<List<Order>>("backlog/search", D);
         }
 
         //TODO Создание заказа
@@ -171,8 +155,7 @@ namespace PochtaAPI
         /// <summary>
         /// Поиск всех партий
         /// </summary>
-        /// <returns></returns>
-        public async Task<List<Batch>> GetAllBatches(MailType? mailType = null, MailCategory? mailCategory = null, int? size = null, SortType sort = SortType.ASK, int? page = null)
+        public Task<List<Batch>> GetAllBatches(MailType? mailType = null, MailCategory? mailCategory = null, int? size = null, SortType sort = SortType.ASK, int? page = null)
         {
             var D = new Dictionary<string, string>
             {
@@ -182,19 +165,15 @@ namespace PochtaAPI
                 {"sort",sort.ToQuery()},
                 {"page",page.ToString()}
             };
-            var R = await CallAPI<List<Batch>>("batch", D);
-            return R.Data;
+            return CallAPI<List<Batch>>("batch", D);
         }
 
         /// <summary>
         /// Поиск партии по наименованию
         /// </summary>
-        /// <param name="Name"></param>
-        /// <returns></returns>
-        public async Task<Batch> GetBatchByName(string Name)
+        public Task<Batch> GetBatchByName(string Name)
         {
-            var R = await CallAPI<Batch>($"batch/{Name}");
-            return R.Data;
+            return CallAPI<Batch>($"batch/{Name}");
         }
 
         /// <summary>
@@ -203,9 +182,8 @@ namespace PochtaAPI
         /// <param name="name">Наименование партии</param>
         /// <param name="size">Количество записей на странице</param>
         /// <param name="sort">Критерии сортировки в формате: asc(по возрастанию) или desc (по убыванию).</param>
-        /// <param name="page">Номер страниц</param>
-        /// <returns></returns>
-        public async Task<List<Order>> GetOrdersInBatch(string name, int? size = null, SortType sort = SortType.ASK, int? page = null)
+        /// <param name="page">Номер страницы</param>
+        public Task<List<Order>> GetOrdersInBatch(string name, int? size = null, SortType sort = SortType.ASK, int? page = null)
         {
             var D = new Dictionary<string, string>
             {
@@ -213,9 +191,7 @@ namespace PochtaAPI
                 {"sort",sort.ToQuery()},
                 {"page",page.ToString()}
             };
-
-            var R = await CallAPI<List<Order>>($"batch/{name}/shipment", D);
-            return R.Data;
+            return CallAPI<List<Order>>($"batch/{name}/shipment", D);
         }
 
         //TODO Создание партии из N заказов
@@ -278,34 +254,23 @@ namespace PochtaAPI
         /// <summary>
         /// Нормализация адреса
         /// </summary>
-        /// <param name="List"></param>
-        /// <returns></returns>
-        public async Task<List<Address>> CleanAddress(IEnumerable<Address> List)
+        public Task<List<Address>> CleanAddress(IEnumerable<Address> List)
         {
             var Body = "[" + string.Join(",", List.Select(A => A.AsJSON())) + "]";
-            var R = await CallAPI<List<Address>>(Method.POST, "", Body);
-            //IRestRequest Request = new RestRequest($"clean/address", Method.POST);
-            //Request.AddParameter("application/json", Body, ParameterType.RequestBody);
-            //var R = await Client.ExecutePostAsync<List<Address>>(Request);
-            return R.Data;
+            return CallAPI<List<Address>>(Method.POST, "", Body);
         }
 
         /// <summary>
         /// Текущее количество запросов по API
         /// </summary>
-        /// <returns></returns>
-        public async Task<APILimit> GetAPILimit()
+        public Task<APILimit> GetAPILimit()
         {
-            var R = await CallAPI<APILimit>("settings/limit");
-            //IRestRequest Request = new RestRequest("settings/limit", Method.GET);
-            //var R = await Client.ExecuteGetAsync<APILimit>(Request);
-            return R.Data;
+            return CallAPI<APILimit>("settings/limit");
         }
 
         /// <summary>
         /// Нормализация ФИО
         /// </summary>
-        /// <returns></returns>
         private async Task<string> CleanFIO()
         {
             //TODO
@@ -317,7 +282,6 @@ namespace PochtaAPI
         /// <summary>
         /// Нормализация телефона
         /// </summary>
-        /// <returns></returns>
         private async Task<string> CleanPhone()
         {
             //TODO
@@ -329,7 +293,6 @@ namespace PochtaAPI
         /// <summary>
         /// Расчет стоимости пересылки
         /// </summary>
-        /// <returns></returns>
         private async Task<string> Tariff()
         {
             //TODO

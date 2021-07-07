@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using RestSharp;
 
 namespace PochtaAPI
 {
@@ -20,6 +21,17 @@ namespace PochtaAPI
         public static string ToQuery(this MailCategory MC)
         {
             return MC.ToString();
+        }
+
+        public static void ApplyQuery(this IRestRequest RR, IDictionary<string, string> D)
+        {
+            if (D != null)
+            {
+                foreach (var KVPair in (Dictionary<string, string>)D)
+                {
+                    if (KVPair.Value != "") { RR.AddQueryParameter(KVPair.Key, KVPair.Value); }
+                }
+            }
         }
     }
 }

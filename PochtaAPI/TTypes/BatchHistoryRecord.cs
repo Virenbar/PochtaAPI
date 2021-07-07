@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace PochtaAPI.Data
+namespace PochtaAPI.TTypes
 {
 	/// <summary>
 	/// Запись о операции

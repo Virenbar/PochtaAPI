@@ -1,6 +1,6 @@
 ﻿using PochtaAPI;
-using PochtaAPI.Data;
-using PochtaAPI.SData;
+using PochtaAPI.TTypes;
+using PochtaAPI.STypes;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
@@ -76,12 +76,14 @@ namespace PochtaForm
 
         private async void B_Order_Click(object sender, EventArgs e)
         {
-            _ = await SC.GetOrderAsync(TB_Track.Text);
+            var LO = await SC.GetOrderByID(TB_Track.Text);
+            SetResult(LO);
         }
 
         private async void B_SenderBatch_Click(object sender, EventArgs e)
         {
-            _ = await SC.GetBatchOrdersAsync("15");
+            var LO = await SC.GetOrdersInBatch("15");
+            SetResult(LO);
         }
 
         private async void B_Limit_Click(object sender, EventArgs e)
@@ -102,5 +104,11 @@ namespace PochtaForm
         }
 
         #endregion Sending
+
+        private async void B_AllBatches_Click(object sender, EventArgs e)
+        {
+            var A = await SC.GetAllBatches();
+            SetResult(A);
+        }
     }
 }

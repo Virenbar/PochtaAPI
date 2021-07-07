@@ -53,3 +53,6 @@ Batch B = await TC.GetBatchAsync(T.ID);
 -   *\<Token>* - Токен
 -   *\<Login>* - Логин
 -   *\<Password>* - Пароль
+
+## PochtaForm
+Используется для проверки работы библиотеки.

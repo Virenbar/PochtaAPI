@@ -1,5 +1,5 @@
 ﻿using Pochta;
-using PochtaAPI.Data;
+using PochtaAPI.TTypes;
 using PochtaAPI.Interfaces;
 using PochtaPacket;
 using System;

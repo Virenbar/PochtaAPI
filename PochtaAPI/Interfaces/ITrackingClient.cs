@@ -1,4 +1,4 @@
-﻿using PochtaAPI.Data;
+﻿using PochtaAPI.TTypes;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

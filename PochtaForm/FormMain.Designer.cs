@@ -46,12 +46,14 @@
 			this.BS_Result = new System.Windows.Forms.BindingSource(this.components);
 			this.B_Batch = new System.Windows.Forms.Button();
 			this.panel1 = new System.Windows.Forms.Panel();
+			this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
+			this.TB_Track = new System.Windows.Forms.TextBox();
 			this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
 			this.B_Order = new System.Windows.Forms.Button();
 			this.B_SenderBatch = new System.Windows.Forms.Button();
+			this.B_AllBatches = new System.Windows.Forms.Button();
 			this.B_Limit = new System.Windows.Forms.Button();
 			this.B_Address = new System.Windows.Forms.Button();
-			this.TB_Track = new System.Windows.Forms.TextBox();
 			this.bindingNavigator1 = new System.Windows.Forms.BindingNavigator(this.components);
 			this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
 			this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
@@ -64,15 +66,14 @@
 			this.bindingNavigatorMoveNextItem = new System.Windows.Forms.ToolStripButton();
 			this.bindingNavigatorMoveLastItem = new System.Windows.Forms.ToolStripButton();
 			this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-			this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
 			this.flowLayoutPanel1.SuspendLayout();
 			this.TLP.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.BS_Result)).BeginInit();
 			this.panel1.SuspendLayout();
+			this.flowLayoutPanel3.SuspendLayout();
 			this.flowLayoutPanel2.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.bindingNavigator1)).BeginInit();
 			this.bindingNavigator1.SuspendLayout();
-			this.flowLayoutPanel3.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// PG_Result
@@ -250,61 +251,17 @@
 			this.panel1.Size = new System.Drawing.Size(827, 147);
 			this.panel1.TabIndex = 9;
 			// 
-			// flowLayoutPanel2
+			// flowLayoutPanel3
 			// 
-			this.flowLayoutPanel2.Controls.Add(this.B_Order);
-			this.flowLayoutPanel2.Controls.Add(this.B_SenderBatch);
-			this.flowLayoutPanel2.Controls.Add(this.B_Limit);
-			this.flowLayoutPanel2.Controls.Add(this.B_Address);
-			this.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Right;
-			this.flowLayoutPanel2.Location = new System.Drawing.Point(659, 0);
-			this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-			this.flowLayoutPanel2.Size = new System.Drawing.Size(168, 147);
-			this.flowLayoutPanel2.TabIndex = 11;
-			// 
-			// B_Order
-			// 
-			this.B_Order.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.B_Order.Location = new System.Drawing.Point(3, 3);
-			this.B_Order.Name = "B_Order";
-			this.B_Order.Size = new System.Drawing.Size(75, 23);
-			this.B_Order.TabIndex = 9;
-			this.B_Order.Text = "Otpravka";
-			this.B_Order.UseVisualStyleBackColor = true;
-			this.B_Order.Click += new System.EventHandler(this.B_Order_Click);
-			// 
-			// B_SenderBatch
-			// 
-			this.B_SenderBatch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.B_SenderBatch.Location = new System.Drawing.Point(84, 3);
-			this.B_SenderBatch.Name = "B_SenderBatch";
-			this.B_SenderBatch.Size = new System.Drawing.Size(75, 23);
-			this.B_SenderBatch.TabIndex = 10;
-			this.B_SenderBatch.Text = "Batch";
-			this.B_SenderBatch.UseVisualStyleBackColor = true;
-			this.B_SenderBatch.Click += new System.EventHandler(this.B_SenderBatch_Click);
-			// 
-			// B_Limit
-			// 
-			this.B_Limit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.B_Limit.Location = new System.Drawing.Point(3, 32);
-			this.B_Limit.Name = "B_Limit";
-			this.B_Limit.Size = new System.Drawing.Size(75, 23);
-			this.B_Limit.TabIndex = 11;
-			this.B_Limit.Text = "Limit";
-			this.B_Limit.UseVisualStyleBackColor = true;
-			this.B_Limit.Click += new System.EventHandler(this.B_Limit_Click);
-			// 
-			// B_Address
-			// 
-			this.B_Address.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.B_Address.Location = new System.Drawing.Point(84, 32);
-			this.B_Address.Name = "B_Address";
-			this.B_Address.Size = new System.Drawing.Size(75, 23);
-			this.B_Address.TabIndex = 11;
-			this.B_Address.Text = "Address";
-			this.B_Address.UseVisualStyleBackColor = true;
-			this.B_Address.Click += new System.EventHandler(this.B_Address_Click);
+			this.flowLayoutPanel3.AutoSize = true;
+			this.flowLayoutPanel3.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+			this.flowLayoutPanel3.Controls.Add(this.TB_Track);
+			this.flowLayoutPanel3.Controls.Add(this.B_Search);
+			this.flowLayoutPanel3.Controls.Add(this.B_Batch);
+			this.flowLayoutPanel3.Location = new System.Drawing.Point(227, 3);
+			this.flowLayoutPanel3.Name = "flowLayoutPanel3";
+			this.flowLayoutPanel3.Size = new System.Drawing.Size(279, 58);
+			this.flowLayoutPanel3.TabIndex = 12;
 			// 
 			// TB_Track
 			// 
@@ -316,6 +273,74 @@
 			this.TB_Track.Size = new System.Drawing.Size(192, 20);
 			this.TB_Track.TabIndex = 0;
 			this.TB_Track.Text = global::PochtaForm.Properties.Settings.Default.LastTrack;
+			// 
+			// flowLayoutPanel2
+			// 
+			this.flowLayoutPanel2.Controls.Add(this.B_Limit);
+			this.flowLayoutPanel2.Controls.Add(this.B_AllBatches);
+			this.flowLayoutPanel2.Controls.Add(this.B_Order);
+			this.flowLayoutPanel2.Controls.Add(this.B_SenderBatch);
+			this.flowLayoutPanel2.Controls.Add(this.B_Address);
+			this.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Right;
+			this.flowLayoutPanel2.Location = new System.Drawing.Point(659, 0);
+			this.flowLayoutPanel2.Name = "flowLayoutPanel2";
+			this.flowLayoutPanel2.Size = new System.Drawing.Size(168, 147);
+			this.flowLayoutPanel2.TabIndex = 11;
+			// 
+			// B_Order
+			// 
+			this.B_Order.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.B_Order.Location = new System.Drawing.Point(3, 32);
+			this.B_Order.Name = "B_Order";
+			this.B_Order.Size = new System.Drawing.Size(75, 23);
+			this.B_Order.TabIndex = 9;
+			this.B_Order.Text = "OrderByID";
+			this.B_Order.UseVisualStyleBackColor = true;
+			this.B_Order.Click += new System.EventHandler(this.B_Order_Click);
+			// 
+			// B_SenderBatch
+			// 
+			this.B_SenderBatch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.B_SenderBatch.Location = new System.Drawing.Point(84, 32);
+			this.B_SenderBatch.Name = "B_SenderBatch";
+			this.B_SenderBatch.Size = new System.Drawing.Size(75, 23);
+			this.B_SenderBatch.TabIndex = 10;
+			this.B_SenderBatch.Text = "OrdersInBatch";
+			this.B_SenderBatch.UseVisualStyleBackColor = true;
+			this.B_SenderBatch.Click += new System.EventHandler(this.B_SenderBatch_Click);
+			// 
+			// B_AllBatches
+			// 
+			this.B_AllBatches.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.B_AllBatches.Location = new System.Drawing.Point(84, 3);
+			this.B_AllBatches.Name = "B_AllBatches";
+			this.B_AllBatches.Size = new System.Drawing.Size(75, 23);
+			this.B_AllBatches.TabIndex = 12;
+			this.B_AllBatches.Text = "AllBatches";
+			this.B_AllBatches.UseVisualStyleBackColor = true;
+			this.B_AllBatches.Click += new System.EventHandler(this.B_AllBatches_Click);
+			// 
+			// B_Limit
+			// 
+			this.B_Limit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.B_Limit.Location = new System.Drawing.Point(3, 3);
+			this.B_Limit.Name = "B_Limit";
+			this.B_Limit.Size = new System.Drawing.Size(75, 23);
+			this.B_Limit.TabIndex = 11;
+			this.B_Limit.Text = "Limit";
+			this.B_Limit.UseVisualStyleBackColor = true;
+			this.B_Limit.Click += new System.EventHandler(this.B_Limit_Click);
+			// 
+			// B_Address
+			// 
+			this.B_Address.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.B_Address.Location = new System.Drawing.Point(3, 61);
+			this.B_Address.Name = "B_Address";
+			this.B_Address.Size = new System.Drawing.Size(75, 23);
+			this.B_Address.TabIndex = 11;
+			this.B_Address.Text = "Address";
+			this.B_Address.UseVisualStyleBackColor = true;
+			this.B_Address.Click += new System.EventHandler(this.B_Address_Click);
 			// 
 			// bindingNavigator1
 			// 
@@ -434,18 +459,6 @@
 			this.bindingNavigatorSeparator2.Size = new System.Drawing.Size(6, 25);
 			this.bindingNavigatorSeparator2.Visible = false;
 			// 
-			// flowLayoutPanel3
-			// 
-			this.flowLayoutPanel3.AutoSize = true;
-			this.flowLayoutPanel3.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-			this.flowLayoutPanel3.Controls.Add(this.TB_Track);
-			this.flowLayoutPanel3.Controls.Add(this.B_Search);
-			this.flowLayoutPanel3.Controls.Add(this.B_Batch);
-			this.flowLayoutPanel3.Location = new System.Drawing.Point(227, 3);
-			this.flowLayoutPanel3.Name = "flowLayoutPanel3";
-			this.flowLayoutPanel3.Size = new System.Drawing.Size(279, 58);
-			this.flowLayoutPanel3.TabIndex = 12;
-			// 
 			// FormMain
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -465,12 +478,12 @@
 			((System.ComponentModel.ISupportInitialize)(this.BS_Result)).EndInit();
 			this.panel1.ResumeLayout(false);
 			this.panel1.PerformLayout();
+			this.flowLayoutPanel3.ResumeLayout(false);
+			this.flowLayoutPanel3.PerformLayout();
 			this.flowLayoutPanel2.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.bindingNavigator1)).EndInit();
 			this.bindingNavigator1.ResumeLayout(false);
 			this.bindingNavigator1.PerformLayout();
-			this.flowLayoutPanel3.ResumeLayout(false);
-			this.flowLayoutPanel3.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -513,6 +526,7 @@
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveLastItem;
         private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator2;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel3;
+        private System.Windows.Forms.Button B_AllBatches;
     }
 }
 

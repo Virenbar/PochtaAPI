@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace PochtaAPI.Data
+namespace PochtaAPI.TTypes
 {
 	/// <summary>
 	/// Почтовое отправление

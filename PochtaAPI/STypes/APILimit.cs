@@ -1,4 +1,4 @@
-﻿namespace PochtaAPI.SData
+﻿namespace PochtaAPI.STypes
 {
     /// <summary>
     /// Текущее количество запросов по API

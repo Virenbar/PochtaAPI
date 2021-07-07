@@ -1,4 +1,4 @@
-﻿namespace PochtaAPI
+﻿namespace PochtaAPI.Enums
 
 {
     /// <summary>

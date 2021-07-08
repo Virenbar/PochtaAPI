@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PochtaAPI.Interfaces;
 
 namespace PochtaAPI
 {
@@ -46,9 +47,9 @@ namespace PochtaAPI
 
         private Task<IRestResponse> CallAPI(Method Method, string Resource) { return CallAPI(Method, Resource, null); }
 
-        private Task<T> CallAPI<T>(string Resource) { return CallAPI<T>(Method.GET, Resource, null); }
+        private Task<T> CallAPI<T>(string Resource) => CallAPI<T>(Method.GET, Resource, null);
 
-        private Task<T> CallAPI<T>(string Resource, object Body) { return CallAPI<T>(Method.GET, Resource, Body); }
+        private Task<T> CallAPI<T>(string Resource, IRequestParameter RP) => CallAPI<T>(Method.GET, Resource, RP);
 
         private async Task<IRestResponse> CallAPI(Method Method, string Resource, object Body)
         {
@@ -76,7 +77,7 @@ namespace PochtaAPI
             return R;
         }
 
-        private async Task<T> CallAPI<T>(Method Method, string Resource, object Body)
+        private async Task<T> CallAPI<T>(Method Method, string Resource, IRequestParameter RP)
         {
             IRestResponse<T> R = null;
             switch (Method)
@@ -84,7 +85,7 @@ namespace PochtaAPI
                 case Method.GET:
                     {
                         IRestRequest Request = new RestRequest(Resource, Method.GET);
-                        Request.ApplyQuery((Dictionary<string, string>)Body);
+                        RP.ApplyParameters(Request);
                         R = await Client.ExecuteGetAsync<T>(Request);
                         break;
                     }
@@ -93,7 +94,7 @@ namespace PochtaAPI
                 case Method.DELETE:
                     {
                         IRestRequest Request = new RestRequest(Resource, Method);
-                        Request.AddParameter("application/json", Body, ParameterType.RequestBody);
+                        RP.ApplyParameters(Request);
                         R = await Client.ExecutePostAsync<T>(Request).ConfigureAwait(false);
                         break;
                     }
@@ -138,8 +139,8 @@ namespace PochtaAPI
         /// <remarks>https://otpravka.pochta.ru/specification#/orders-search_order</remarks>
         public Task<List<Order>> GetOrderByID(string Query)
         {
-            var D = new Dictionary<string, string> { { "query", Query } };
-            return CallAPI<List<Order>>("backlog/search", D);
+            var F = new Filter { { "query", Query } };
+            return CallAPI<List<Order>>("backlog/search", F);
         }
 
         //TODO Создание заказа
@@ -155,17 +156,15 @@ namespace PochtaAPI
         /// <summary>
         /// Поиск всех партий
         /// </summary>
-        public Task<List<Batch>> GetAllBatches(MailType? mailType = null, MailCategory? mailCategory = null, int? size = null, SortType sort = SortType.ASK, int? page = null)
+        public Task<List<Batch>> GetAllBatches() => GetAllBatches(new BatchFilter());
+
+        /// <summary>
+        /// Поиск всех партий
+        /// </summary>
+        /// <param name="filter">Фильтр записей</param>
+        public Task<List<Batch>> GetAllBatches(BatchFilter filter)
         {
-            var D = new Dictionary<string, string>
-            {
-                {"mailType",mailCategory.ToString()},
-                {"mailCategory",mailCategory.ToString()},
-                {"size",size.ToString()},
-                {"sort",sort.ToQuery()},
-                {"page",page.ToString()}
-            };
-            return CallAPI<List<Batch>>("batch", D);
+            return CallAPI<List<Batch>>("batch", filter);
         }
 
         /// <summary>
@@ -180,18 +179,16 @@ namespace PochtaAPI
         /// Запрос данных о заказах в партии
         /// </summary>
         /// <param name="name">Наименование партии</param>
-        /// <param name="size">Количество записей на странице</param>
-        /// <param name="sort">Критерии сортировки в формате: asc(по возрастанию) или desc (по убыванию).</param>
-        /// <param name="page">Номер страницы</param>
-        public Task<List<Order>> GetOrdersInBatch(string name, int? size = null, SortType sort = SortType.ASK, int? page = null)
+        public Task<List<Order>> GetOrdersInBatch(string name) => GetOrdersInBatch(name, new BasicFilter());
+
+        /// <summary>
+        /// Запрос данных о заказах в партии
+        /// </summary>
+        /// <param name="name">Наименование партии</param>
+        /// <param name="filter">Фильтр записей</param>
+        public Task<List<Order>> GetOrdersInBatch(string name, BasicFilter filter)
         {
-            var D = new Dictionary<string, string>
-            {
-                {"size",size.ToString()},
-                {"sort",sort.ToQuery()},
-                {"page",page.ToString()}
-            };
-            return CallAPI<List<Order>>($"batch/{name}/shipment", D);
+            return CallAPI<List<Order>>($"batch/{name}/shipment", filter);
         }
 
         //TODO Создание партии из N заказов
@@ -257,7 +254,7 @@ namespace PochtaAPI
         public Task<List<Address>> CleanAddress(IEnumerable<Address> List)
         {
             var Body = "[" + string.Join(",", List.Select(A => A.AsJSON())) + "]";
-            return CallAPI<List<Address>>(Method.POST, "", Body);
+            return CallAPI<List<Address>>(Method.POST, "", new StringBody(Body));
         }
 
         /// <summary>

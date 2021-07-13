@@ -1,21 +1,22 @@
-﻿using PochtaAPI.Interfaces;
-using RestSharp;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace PochtaAPI
 {
     /// <summary>
     /// Фильтр
     /// </summary>
-    public class Filter : IRequestParameter, IEnumerable<KeyValuePair<string, string>>
+    public class Parameters : IEnumerable<KeyValuePair<string, string>>
     {
         private Dictionary<string, string> Query = new Dictionary<string, string>();
 
         /// <summary>
         /// Инициализирует новый пустой фильтр
         /// </summary>
-        internal Filter() { }
+        internal Parameters() { }
+
+        internal int Count => Query.Count;
 
         internal string this[string name]
         {
@@ -23,15 +24,13 @@ namespace PochtaAPI
             set => Query[name] = value;
         }
 
-        void IRequestParameter.ApplyParameters(IRestRequest request)
-        {
-            foreach (var KVPair in this)
-            {
-                request.AddQueryParameter(KVPair.Key, KVPair.Value);
-            }
-        }
-
         internal void Add(string name, string value) => this[name] = value;
+
+        internal string ToQuery()
+        {
+            var r = Query.Select(KV => $"{KV.Key}={KV.Value}");
+            return string.Join("&", r);
+        }
 
         #region IEnumerable
 

@@ -1,124 +1,30 @@
-﻿using PochtaAPI.Enums;
-using PochtaAPI.STypes;
-using RestSharp;
+﻿using PochtaAPI.STypes;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using PochtaAPI.Interfaces;
 
 namespace PochtaAPI
 {
     /// <summary>
     /// Клиент для работы с API отправки
     /// </summary>
-    public class SendingClient
+    public class SendingClient : BaseClient
     {
-        private const string URL = "https://otpravka-api.pochta.ru";
-        private const string V1 = "1.0";
-        private readonly IRestClient Client;
-
         /// <summary>
         /// Создаёт клиент для работы с API отправки
         /// </summary>
         /// <param name="Token">Токен</param>
         /// <param name="Login">Логин</param>
         /// <param name="Password">Пароль</param>
-        public SendingClient(string Token, string Login, string Password) : this(Token, Convert.ToBase64String(Encoding.UTF8.GetBytes($"{Login}:{Password}"))) { }
+        public SendingClient(string Token, string Login, string Password) : base(Token, Convert.ToBase64String(Encoding.UTF8.GetBytes($"{Login}:{Password}"))) { }
 
         /// <summary>
         /// Создаёт клиент для работы с API отправки
         /// </summary>
         /// <param name="Token">Токен</param>
         /// <param name="Key">Ключ</param>
-        public SendingClient(string Token, string Key)
-        {
-            Client = new RestClient($"{URL}/{V1}");
-            Client.AddDefaultHeader("Content-Type", "application/json;charset=UTF-8");
-            Client.AddDefaultHeader("Authorization", "AccessToken " + Token);
-            Client.AddDefaultHeader("X-User-Authorization", "Basic " + Key);
-        }
-
-        #region Core
-
-        private Task<IRestResponse> CallAPI(string Resource) { return CallAPI(Method.GET, Resource, null); }
-
-        private Task<IRestResponse> CallAPI(Method Method, string Resource) { return CallAPI(Method, Resource, null); }
-
-        private Task<T> CallAPI<T>(string Resource) => CallAPI<T>(Method.GET, Resource, null);
-
-        private Task<T> CallAPI<T>(string Resource, IRequestParameter RP) => CallAPI<T>(Method.GET, Resource, RP);
-
-        private async Task<IRestResponse> CallAPI(Method Method, string Resource, object Body)
-        {
-            IRestResponse R = null;
-            switch (Method)
-            {
-                case Method.GET:
-                    {
-                        IRestRequest Request = new RestRequest(Resource, Method.GET);
-                        Request.ApplyQuery((Dictionary<string, string>)Body);
-                        R = await Client.ExecuteGetAsync(Request);
-                        break;
-                    }
-                case Method.POST:
-                case Method.PUT:
-                case Method.DELETE:
-                    {
-                        IRestRequest Request = new RestRequest(Resource, Method);
-                        Request.AddParameter("application/json", Body, ParameterType.RequestBody);
-                        R = await Client.ExecutePostAsync(Request).ConfigureAwait(false);
-                        break;
-                    }
-                default: throw new InvalidOperationException($"Этому здесь не место: {Method}");
-            }
-            return R;
-        }
-
-        private async Task<T> CallAPI<T>(Method Method, string Resource, IRequestParameter RP)
-        {
-            IRestResponse<T> R = null;
-            switch (Method)
-            {
-                case Method.GET:
-                    {
-                        IRestRequest Request = new RestRequest(Resource, Method.GET);
-                        RP.ApplyParameters(Request);
-                        R = await Client.ExecuteGetAsync<T>(Request);
-                        break;
-                    }
-                case Method.POST:
-                case Method.PUT:
-                case Method.DELETE:
-                    {
-                        IRestRequest Request = new RestRequest(Resource, Method);
-                        RP.ApplyParameters(Request);
-                        R = await Client.ExecutePostAsync<T>(Request).ConfigureAwait(false);
-                        break;
-                    }
-                default: throw new InvalidOperationException($"Этому здесь не место: {Method}");
-            }
-            return R.Data;
-        }
-
-        private Task CallAPIDownload(string Resource, string Target)
-        {
-            return Task.Run(() =>
-            {
-                using (var writer = File.OpenWrite(Target))
-                {
-                    IRestRequest Request = new RestRequest(Resource, Method.GET)
-                    {
-                        ResponseWriter = responseStream => { using (responseStream) { responseStream.CopyTo(writer); } }
-                    };
-                    _ = Client.DownloadData(Request);
-                }
-            });
-        }
-
-        #endregion Core
+        public SendingClient(string Token, string Key) : base(Token, Key) { }
 
         #region ЗАКАЗЫ
 
@@ -129,7 +35,7 @@ namespace PochtaAPI
         /// <remarks>https://otpravka.pochta.ru/specification#/orders-search_order_byid</remarks>
         public Task<Order> GetOrderByID(int ID)
         {
-            return CallAPI<Order>($"backlog/{ID}");
+            return CallAPIGet<Order>($"backlog/{ID}");
         }
 
         /// <summary>
@@ -139,8 +45,8 @@ namespace PochtaAPI
         /// <remarks>https://otpravka.pochta.ru/specification#/orders-search_order</remarks>
         public Task<List<Order>> GetOrderByID(string Query)
         {
-            var F = new Filter { { "query", Query } };
-            return CallAPI<List<Order>>("backlog/search", F);
+            var F = new Parameters { { "query", Query } };
+            return CallAPIGet<List<Order>>("backlog/search", F);
         }
 
         //TODO Создание заказа
@@ -156,15 +62,15 @@ namespace PochtaAPI
         /// <summary>
         /// Поиск всех партий
         /// </summary>
-        public Task<List<Batch>> GetAllBatches() => GetAllBatches(new BatchFilter());
+        public Task<List<Batch>> GetAllBatches() => GetAllBatches(new BatchParameters());
 
         /// <summary>
         /// Поиск всех партий
         /// </summary>
         /// <param name="filter">Фильтр записей</param>
-        public Task<List<Batch>> GetAllBatches(BatchFilter filter)
+        public Task<List<Batch>> GetAllBatches(BatchParameters filter)
         {
-            return CallAPI<List<Batch>>("batch", filter);
+            return CallAPIGet<List<Batch>>("batch", filter);
         }
 
         /// <summary>
@@ -172,23 +78,23 @@ namespace PochtaAPI
         /// </summary>
         public Task<Batch> GetBatchByName(string Name)
         {
-            return CallAPI<Batch>($"batch/{Name}");
+            return CallAPIGet<Batch>($"batch/{Name}");
         }
 
         /// <summary>
         /// Запрос данных о заказах в партии
         /// </summary>
         /// <param name="name">Наименование партии</param>
-        public Task<List<Order>> GetOrdersInBatch(string name) => GetOrdersInBatch(name, new BasicFilter());
+        public Task<List<Order>> GetOrdersInBatch(string name) => GetOrdersInBatch(name, new BasicParameters());
 
         /// <summary>
         /// Запрос данных о заказах в партии
         /// </summary>
         /// <param name="name">Наименование партии</param>
         /// <param name="filter">Фильтр записей</param>
-        public Task<List<Order>> GetOrdersInBatch(string name, BasicFilter filter)
+        public Task<List<Order>> GetOrdersInBatch(string name, BasicParameters filter)
         {
-            return CallAPI<List<Order>>($"batch/{name}/shipment", filter);
+            return CallAPIGet<List<Order>>($"batch/{name}/shipment", filter);
         }
 
         //TODO Создание партии из N заказов
@@ -251,10 +157,9 @@ namespace PochtaAPI
         /// <summary>
         /// Нормализация адреса
         /// </summary>
-        public Task<List<Address>> CleanAddress(IEnumerable<Address> List)
+        public Task<List<AddressClean>> CleanAddress(IList<Address> data)
         {
-            var Body = "[" + string.Join(",", List.Select(A => A.AsJSON())) + "]";
-            return CallAPI<List<Address>>(Method.POST, "", new StringBody(Body));
+            return CallAPI<List<AddressClean>>("clean/address", data);
         }
 
         /// <summary>
@@ -262,49 +167,33 @@ namespace PochtaAPI
         /// </summary>
         public Task<APILimit> GetAPILimit()
         {
-            return CallAPI<APILimit>("settings/limit");
+            return CallAPIGet<APILimit>("settings/limit");
         }
 
         /// <summary>
         /// Нормализация ФИО
         /// </summary>
-        private async Task<string> CleanFIO()
+        public Task<List<FIOClean>> CleanFIO(IList<FIO> data)
         {
-            //TODO
-            IRestRequest Request = new RestRequest("clean/physical", Method.POST);
-            var R = await Client.ExecutePostAsync(Request);
-            return R.Content;
+            return CallAPI<List<FIOClean>>("clean/physical", data);
         }
 
         /// <summary>
         /// Нормализация телефона
         /// </summary>
-        private async Task<string> CleanPhone()
+        public Task<List<PhoneClean>> CleanPhone(IList<Phone> data)
         {
-            //TODO
-            IRestRequest Request = new RestRequest("clean/phone", Method.POST);
-            var R = await Client.ExecutePostAsync(Request);
-            return R.Content;
+            return CallAPI<List<PhoneClean>>("clean/phone", data);
         }
 
         /// <summary>
         /// Расчет стоимости пересылки
         /// </summary>
-        private async Task<string> Tariff()
+        private Task<string> Tariff(object data)
         {
-            //TODO
-            IRestRequest Request = new RestRequest("tariff", Method.POST);
-            var R = await Client.ExecuteGetAsync(Request);
-            return R.Content;
+            return CallAPI<string>("tariff", data);
         }
 
         #endregion ДАННЫЕ
-
-        private async Task<string> Prototype()
-        {
-            IRestRequest Request = new RestRequest($"", Method.GET);
-            var R = await Client.ExecuteGetAsync(Request);
-            return R.Content;
-        }
     }
 }

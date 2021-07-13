@@ -100,16 +100,42 @@ namespace PochtaForm
                 new Address("г. Москва, Варшавское шоссе, 37"),
                 new Address("г. Новосибирск, ул. Жуковского, 100/4")
             };
-            AL = await SC.CleanAddress(AL);
-            SetResult(AL);
+            var ALC = await SC.CleanAddress(AL);
+            SetResult(ALC);
         }
-
-        #endregion Sending
 
         private async void B_AllBatches_Click(object sender, EventArgs e)
         {
             var A = await SC.GetAllBatches();
             SetResult(A);
         }
+
+        private async void B_FIO_Click(object sender, EventArgs e)
+        {
+            var L = new List<FIO>
+            {
+                new FIO("Иванов Иван Иванович"),
+                new FIO("Иванов Николай Иванович")
+            };
+            var R = await SC.CleanFIO(L);
+            SetResult(R);
+        }
+
+        private async void B_Phone_Click(object sender, EventArgs e)
+        {
+            var L = new List<Phone>
+            {
+                new Phone("2-08-14")
+                {
+                    Place ="Камышлов",
+                    Region ="Свердловская область"
+                },
+                new Phone("8-499-257-44-56")
+            };
+            var R = await SC.CleanPhone(L);
+            SetResult(R);
+        }
+
+        #endregion Sending
     }
 }

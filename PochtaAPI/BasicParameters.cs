@@ -3,19 +3,19 @@
 namespace PochtaAPI
 {
     /// <summary>
-    /// Базовый фильтр
+    /// Базовые параметры
     /// </summary>
-    public class BasicFilter : Filter
+    public class BasicParameters : Parameters
     {
         /// <summary>
-        /// Инициализирует новый пустой базовый фильтр
+        /// Инициализирует новые параметры
         /// </summary>
-        public BasicFilter() { }
+        public BasicParameters() { }
 
         /// <summary>
-        /// Инициализирует новый фильтр
+        /// Инициализирует новые параметры
         /// </summary>
-        public BasicFilter(int? size, SortType sort, int? page) { }
+        public BasicParameters(int? size, SortType sort, int? page) { }
 
         /// <summary>
         /// Номер страницы

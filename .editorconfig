@@ -7,3 +7,6 @@ indent_style = space
 # Xml files
 [*.xml]
 indent_size = 2
+
+[Reference.cs]
+generated_code = true

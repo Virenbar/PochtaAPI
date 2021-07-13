@@ -1,9 +1,6 @@
 ﻿using PochtaAPI.Enums;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using RestSharp;
 using PochtaAPI.STypes;
+using System.Collections.Generic;
 
 namespace PochtaAPI
 {
@@ -27,17 +24,6 @@ namespace PochtaAPI
         public static string ToBody(this List<Address> LA)
         {
             return LA.ToString();
-        }
-
-        public static void ApplyQuery(this IRestRequest RR, IDictionary<string, string> D)
-        {
-            if (D != null)
-            {
-                foreach (var KVPair in (Dictionary<string, string>)D)
-                {
-                    if (KVPair.Value != "") { RR.AddQueryParameter(KVPair.Key, KVPair.Value); }
-                }
-            }
         }
     }
 }

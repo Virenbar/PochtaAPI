@@ -49,10 +49,10 @@
 			this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
 			this.TB_Track = new System.Windows.Forms.TextBox();
 			this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
+			this.B_Limit = new System.Windows.Forms.Button();
+			this.B_AllBatches = new System.Windows.Forms.Button();
 			this.B_Order = new System.Windows.Forms.Button();
 			this.B_SenderBatch = new System.Windows.Forms.Button();
-			this.B_AllBatches = new System.Windows.Forms.Button();
-			this.B_Limit = new System.Windows.Forms.Button();
 			this.B_Address = new System.Windows.Forms.Button();
 			this.bindingNavigator1 = new System.Windows.Forms.BindingNavigator(this.components);
 			this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
@@ -66,6 +66,8 @@
 			this.bindingNavigatorMoveNextItem = new System.Windows.Forms.ToolStripButton();
 			this.bindingNavigatorMoveLastItem = new System.Windows.Forms.ToolStripButton();
 			this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+			this.B_FIO = new System.Windows.Forms.Button();
+			this.B_Phone = new System.Windows.Forms.Button();
 			this.flowLayoutPanel1.SuspendLayout();
 			this.TLP.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.BS_Result)).BeginInit();
@@ -281,11 +283,35 @@
 			this.flowLayoutPanel2.Controls.Add(this.B_Order);
 			this.flowLayoutPanel2.Controls.Add(this.B_SenderBatch);
 			this.flowLayoutPanel2.Controls.Add(this.B_Address);
+			this.flowLayoutPanel2.Controls.Add(this.B_FIO);
+			this.flowLayoutPanel2.Controls.Add(this.B_Phone);
 			this.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Right;
 			this.flowLayoutPanel2.Location = new System.Drawing.Point(659, 0);
 			this.flowLayoutPanel2.Name = "flowLayoutPanel2";
 			this.flowLayoutPanel2.Size = new System.Drawing.Size(168, 147);
 			this.flowLayoutPanel2.TabIndex = 11;
+			// 
+			// B_Limit
+			// 
+			this.B_Limit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.B_Limit.Location = new System.Drawing.Point(3, 3);
+			this.B_Limit.Name = "B_Limit";
+			this.B_Limit.Size = new System.Drawing.Size(75, 23);
+			this.B_Limit.TabIndex = 11;
+			this.B_Limit.Text = "Limit";
+			this.B_Limit.UseVisualStyleBackColor = true;
+			this.B_Limit.Click += new System.EventHandler(this.B_Limit_Click);
+			// 
+			// B_AllBatches
+			// 
+			this.B_AllBatches.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.B_AllBatches.Location = new System.Drawing.Point(84, 3);
+			this.B_AllBatches.Name = "B_AllBatches";
+			this.B_AllBatches.Size = new System.Drawing.Size(75, 23);
+			this.B_AllBatches.TabIndex = 12;
+			this.B_AllBatches.Text = "AllBatches";
+			this.B_AllBatches.UseVisualStyleBackColor = true;
+			this.B_AllBatches.Click += new System.EventHandler(this.B_AllBatches_Click);
 			// 
 			// B_Order
 			// 
@@ -308,28 +334,6 @@
 			this.B_SenderBatch.Text = "OrdersInBatch";
 			this.B_SenderBatch.UseVisualStyleBackColor = true;
 			this.B_SenderBatch.Click += new System.EventHandler(this.B_SenderBatch_Click);
-			// 
-			// B_AllBatches
-			// 
-			this.B_AllBatches.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.B_AllBatches.Location = new System.Drawing.Point(84, 3);
-			this.B_AllBatches.Name = "B_AllBatches";
-			this.B_AllBatches.Size = new System.Drawing.Size(75, 23);
-			this.B_AllBatches.TabIndex = 12;
-			this.B_AllBatches.Text = "AllBatches";
-			this.B_AllBatches.UseVisualStyleBackColor = true;
-			this.B_AllBatches.Click += new System.EventHandler(this.B_AllBatches_Click);
-			// 
-			// B_Limit
-			// 
-			this.B_Limit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.B_Limit.Location = new System.Drawing.Point(3, 3);
-			this.B_Limit.Name = "B_Limit";
-			this.B_Limit.Size = new System.Drawing.Size(75, 23);
-			this.B_Limit.TabIndex = 11;
-			this.B_Limit.Text = "Limit";
-			this.B_Limit.UseVisualStyleBackColor = true;
-			this.B_Limit.Click += new System.EventHandler(this.B_Limit_Click);
 			// 
 			// B_Address
 			// 
@@ -459,6 +463,28 @@
 			this.bindingNavigatorSeparator2.Size = new System.Drawing.Size(6, 25);
 			this.bindingNavigatorSeparator2.Visible = false;
 			// 
+			// B_FIO
+			// 
+			this.B_FIO.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.B_FIO.Location = new System.Drawing.Point(84, 61);
+			this.B_FIO.Name = "B_FIO";
+			this.B_FIO.Size = new System.Drawing.Size(75, 23);
+			this.B_FIO.TabIndex = 13;
+			this.B_FIO.Text = "FIO";
+			this.B_FIO.UseVisualStyleBackColor = true;
+			this.B_FIO.Click += new System.EventHandler(this.B_FIO_Click);
+			// 
+			// B_Phone
+			// 
+			this.B_Phone.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.B_Phone.Location = new System.Drawing.Point(3, 90);
+			this.B_Phone.Name = "B_Phone";
+			this.B_Phone.Size = new System.Drawing.Size(75, 23);
+			this.B_Phone.TabIndex = 14;
+			this.B_Phone.Text = "Phone";
+			this.B_Phone.UseVisualStyleBackColor = true;
+			this.B_Phone.Click += new System.EventHandler(this.B_Phone_Click);
+			// 
 			// FormMain
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -527,6 +553,8 @@
         private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator2;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel3;
         private System.Windows.Forms.Button B_AllBatches;
+        private System.Windows.Forms.Button B_FIO;
+        private System.Windows.Forms.Button B_Phone;
     }
 }
 

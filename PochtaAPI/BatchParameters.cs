@@ -3,9 +3,9 @@
 namespace PochtaAPI
 {
     /// <summary>
-    /// Фильтр
+    /// Параметры
     /// </summary>
-    public class BatchFilter : BasicFilter
+    public class BatchParameters : BasicParameters
     {
         /// <summary>
         /// Категория отправления

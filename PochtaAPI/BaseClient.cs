@@ -13,7 +13,7 @@ namespace PochtaAPI
     {
         protected HttpClient Client;
         protected JsonSerializer Serializer;
-        private const string URL = "https://otpravka-api.pochta.ru";
+        private const string EndPoint = "https://otpravka-api.pochta.ru";
         private const string V1 = "1.0";
 
         static BaseClient()
@@ -91,9 +91,9 @@ namespace PochtaAPI
 
         private string BuildURL(string Resource, Parameters Params)
         {
-            var url = $"{URL}/{V1}/{Resource}";
-            if (Params != null && Params.Count > 0) { url += $"?{Params.ToQuery()}"; }
-            return url;
+            var URL = $"{EndPoint}/{V1}/{Resource}";
+            if (Params != null && Params.Count > 0) { URL += $"?{Params.ToQuery()}"; }
+            return URL;
         }
 
         private async Task<T> Deserialize<T>(HttpResponseMessage HRM)

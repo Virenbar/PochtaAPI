@@ -9,11 +9,6 @@ namespace PochtaAPI.STypes
     [DataContract]
     public class AddressClean
     {
-        /// <summary>
-        /// Создаёт новый адрес
-        /// </summary>
-        public AddressClean() { }
-
         [JsonConverter(typeof(StringEnumConverter))]
         [DataMember(Name = "address-type")]
         public AddressType AddressType { get; set; }

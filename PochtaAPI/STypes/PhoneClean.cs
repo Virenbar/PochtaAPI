@@ -12,11 +12,6 @@ namespace PochtaAPI.STypes
     public class PhoneClean
     {
         /// <summary>
-        /// Создаёт новый номер телефона
-        /// </summary>
-        public PhoneClean() { }
-
-        /// <summary>
         /// Идентификатор записи
         /// </summary>
         [DataMember(Name = "id")]

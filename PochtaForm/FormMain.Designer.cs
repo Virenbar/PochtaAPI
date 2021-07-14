@@ -46,6 +46,8 @@
 			this.BS_Result = new System.Windows.Forms.BindingSource(this.components);
 			this.B_Batch = new System.Windows.Forms.Button();
 			this.panel1 = new System.Windows.Forms.Panel();
+			this.groupBox2 = new System.Windows.Forms.GroupBox();
+			this.flowLayoutPanel5 = new System.Windows.Forms.FlowLayoutPanel();
 			this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
 			this.TB_Track = new System.Windows.Forms.TextBox();
 			this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
@@ -54,6 +56,13 @@
 			this.B_Order = new System.Windows.Forms.Button();
 			this.B_SenderBatch = new System.Windows.Forms.Button();
 			this.B_Address = new System.Windows.Forms.Button();
+			this.B_FIO = new System.Windows.Forms.Button();
+			this.B_Phone = new System.Windows.Forms.Button();
+			this.B_Tariff = new System.Windows.Forms.Button();
+			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.flowLayoutPanel4 = new System.Windows.Forms.FlowLayoutPanel();
+			this.B_User = new System.Windows.Forms.Button();
+			this.B_UserPoints = new System.Windows.Forms.Button();
 			this.bindingNavigator1 = new System.Windows.Forms.BindingNavigator(this.components);
 			this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
 			this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
@@ -66,24 +75,31 @@
 			this.bindingNavigatorMoveNextItem = new System.Windows.Forms.ToolStripButton();
 			this.bindingNavigatorMoveLastItem = new System.Windows.Forms.ToolStripButton();
 			this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-			this.B_FIO = new System.Windows.Forms.Button();
-			this.B_Phone = new System.Windows.Forms.Button();
+			this.groupBox3 = new System.Windows.Forms.GroupBox();
+			this.flowLayoutPanel6 = new System.Windows.Forms.FlowLayoutPanel();
+			this.flowLayoutPanel7 = new System.Windows.Forms.FlowLayoutPanel();
 			this.flowLayoutPanel1.SuspendLayout();
 			this.TLP.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.BS_Result)).BeginInit();
 			this.panel1.SuspendLayout();
+			this.groupBox2.SuspendLayout();
 			this.flowLayoutPanel3.SuspendLayout();
 			this.flowLayoutPanel2.SuspendLayout();
+			this.groupBox1.SuspendLayout();
+			this.flowLayoutPanel4.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.bindingNavigator1)).BeginInit();
 			this.bindingNavigator1.SuspendLayout();
+			this.groupBox3.SuspendLayout();
+			this.flowLayoutPanel6.SuspendLayout();
+			this.flowLayoutPanel7.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// PG_Result
 			// 
 			this.PG_Result.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.PG_Result.Location = new System.Drawing.Point(0, 172);
+			this.PG_Result.Location = new System.Drawing.Point(291, 25);
 			this.PG_Result.Name = "PG_Result";
-			this.PG_Result.Size = new System.Drawing.Size(827, 448);
+			this.PG_Result.Size = new System.Drawing.Size(486, 595);
 			this.PG_Result.TabIndex = 1;
 			// 
 			// B_Search
@@ -102,7 +118,7 @@
 			this.B_Unlock.Anchor = System.Windows.Forms.AnchorStyles.None;
 			this.B_Unlock.AutoSize = true;
 			this.B_Unlock.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-			this.B_Unlock.Location = new System.Drawing.Point(3, 113);
+			this.B_Unlock.Location = new System.Drawing.Point(224, 43);
 			this.B_Unlock.Name = "B_Unlock";
 			this.B_Unlock.Size = new System.Drawing.Size(51, 23);
 			this.B_Unlock.TabIndex = 5;
@@ -126,10 +142,9 @@
 			this.flowLayoutPanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
 			this.flowLayoutPanel1.Controls.Add(this.TLP);
 			this.flowLayoutPanel1.Controls.Add(this.B_Unlock);
-			this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Left;
-			this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+			this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 3);
 			this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-			this.flowLayoutPanel1.Size = new System.Drawing.Size(221, 147);
+			this.flowLayoutPanel1.Size = new System.Drawing.Size(278, 110);
 			this.flowLayoutPanel1.TabIndex = 7;
 			// 
 			// TLP
@@ -244,14 +259,32 @@
 			// 
 			// panel1
 			// 
-			this.panel1.Controls.Add(this.flowLayoutPanel3);
+			this.panel1.Controls.Add(this.flowLayoutPanel7);
 			this.panel1.Controls.Add(this.flowLayoutPanel2);
-			this.panel1.Controls.Add(this.flowLayoutPanel1);
-			this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+			this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
 			this.panel1.Location = new System.Drawing.Point(0, 0);
 			this.panel1.Name = "panel1";
-			this.panel1.Size = new System.Drawing.Size(827, 147);
+			this.panel1.Size = new System.Drawing.Size(291, 620);
 			this.panel1.TabIndex = 9;
+			// 
+			// groupBox2
+			// 
+			this.groupBox2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+			this.groupBox2.Controls.Add(this.flowLayoutPanel5);
+			this.groupBox2.Location = new System.Drawing.Point(3, 204);
+			this.groupBox2.Name = "groupBox2";
+			this.groupBox2.Size = new System.Drawing.Size(200, 100);
+			this.groupBox2.TabIndex = 14;
+			this.groupBox2.TabStop = false;
+			this.groupBox2.Text = "Данные";
+			// 
+			// flowLayoutPanel5
+			// 
+			this.flowLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.flowLayoutPanel5.Location = new System.Drawing.Point(3, 16);
+			this.flowLayoutPanel5.Name = "flowLayoutPanel5";
+			this.flowLayoutPanel5.Size = new System.Drawing.Size(194, 81);
+			this.flowLayoutPanel5.TabIndex = 13;
 			// 
 			// flowLayoutPanel3
 			// 
@@ -260,7 +293,7 @@
 			this.flowLayoutPanel3.Controls.Add(this.TB_Track);
 			this.flowLayoutPanel3.Controls.Add(this.B_Search);
 			this.flowLayoutPanel3.Controls.Add(this.B_Batch);
-			this.flowLayoutPanel3.Location = new System.Drawing.Point(227, 3);
+			this.flowLayoutPanel3.Location = new System.Drawing.Point(3, 119);
 			this.flowLayoutPanel3.Name = "flowLayoutPanel3";
 			this.flowLayoutPanel3.Size = new System.Drawing.Size(279, 58);
 			this.flowLayoutPanel3.TabIndex = 12;
@@ -278,17 +311,16 @@
 			// 
 			// flowLayoutPanel2
 			// 
-			this.flowLayoutPanel2.Controls.Add(this.B_Limit);
 			this.flowLayoutPanel2.Controls.Add(this.B_AllBatches);
 			this.flowLayoutPanel2.Controls.Add(this.B_Order);
 			this.flowLayoutPanel2.Controls.Add(this.B_SenderBatch);
-			this.flowLayoutPanel2.Controls.Add(this.B_Address);
-			this.flowLayoutPanel2.Controls.Add(this.B_FIO);
-			this.flowLayoutPanel2.Controls.Add(this.B_Phone);
-			this.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Right;
-			this.flowLayoutPanel2.Location = new System.Drawing.Point(659, 0);
+			this.flowLayoutPanel2.Controls.Add(this.groupBox3);
+			this.flowLayoutPanel2.Controls.Add(this.groupBox1);
+			this.flowLayoutPanel2.Controls.Add(this.groupBox2);
+			this.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Bottom;
+			this.flowLayoutPanel2.Location = new System.Drawing.Point(0, 218);
 			this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-			this.flowLayoutPanel2.Size = new System.Drawing.Size(168, 147);
+			this.flowLayoutPanel2.Size = new System.Drawing.Size(291, 402);
 			this.flowLayoutPanel2.TabIndex = 11;
 			// 
 			// B_Limit
@@ -305,7 +337,7 @@
 			// B_AllBatches
 			// 
 			this.B_AllBatches.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.B_AllBatches.Location = new System.Drawing.Point(84, 3);
+			this.B_AllBatches.Location = new System.Drawing.Point(3, 3);
 			this.B_AllBatches.Name = "B_AllBatches";
 			this.B_AllBatches.Size = new System.Drawing.Size(75, 23);
 			this.B_AllBatches.TabIndex = 12;
@@ -316,7 +348,7 @@
 			// B_Order
 			// 
 			this.B_Order.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.B_Order.Location = new System.Drawing.Point(3, 32);
+			this.B_Order.Location = new System.Drawing.Point(84, 3);
 			this.B_Order.Name = "B_Order";
 			this.B_Order.Size = new System.Drawing.Size(75, 23);
 			this.B_Order.TabIndex = 9;
@@ -327,7 +359,7 @@
 			// B_SenderBatch
 			// 
 			this.B_SenderBatch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.B_SenderBatch.Location = new System.Drawing.Point(84, 32);
+			this.B_SenderBatch.Location = new System.Drawing.Point(165, 3);
 			this.B_SenderBatch.Name = "B_SenderBatch";
 			this.B_SenderBatch.Size = new System.Drawing.Size(75, 23);
 			this.B_SenderBatch.TabIndex = 10;
@@ -345,6 +377,85 @@
 			this.B_Address.Text = "Address";
 			this.B_Address.UseVisualStyleBackColor = true;
 			this.B_Address.Click += new System.EventHandler(this.B_Address_Click);
+			// 
+			// B_FIO
+			// 
+			this.B_FIO.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.B_FIO.Location = new System.Drawing.Point(84, 32);
+			this.B_FIO.Name = "B_FIO";
+			this.B_FIO.Size = new System.Drawing.Size(75, 23);
+			this.B_FIO.TabIndex = 13;
+			this.B_FIO.Text = "FIO";
+			this.B_FIO.UseVisualStyleBackColor = true;
+			this.B_FIO.Click += new System.EventHandler(this.B_FIO_Click);
+			// 
+			// B_Phone
+			// 
+			this.B_Phone.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.B_Phone.Location = new System.Drawing.Point(3, 32);
+			this.B_Phone.Name = "B_Phone";
+			this.B_Phone.Size = new System.Drawing.Size(75, 23);
+			this.B_Phone.TabIndex = 14;
+			this.B_Phone.Text = "Phone";
+			this.B_Phone.UseVisualStyleBackColor = true;
+			this.B_Phone.Click += new System.EventHandler(this.B_Phone_Click);
+			// 
+			// B_Tariff
+			// 
+			this.B_Tariff.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.B_Tariff.Location = new System.Drawing.Point(84, 3);
+			this.B_Tariff.Name = "B_Tariff";
+			this.B_Tariff.Size = new System.Drawing.Size(75, 23);
+			this.B_Tariff.TabIndex = 15;
+			this.B_Tariff.Text = "Tariff";
+			this.B_Tariff.UseVisualStyleBackColor = true;
+			this.B_Tariff.Click += new System.EventHandler(this.B_Tariff_Click);
+			// 
+			// groupBox1
+			// 
+			this.groupBox1.AutoSize = true;
+			this.groupBox1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+			this.groupBox1.Controls.Add(this.flowLayoutPanel4);
+			this.groupBox1.Location = new System.Drawing.Point(3, 150);
+			this.groupBox1.Name = "groupBox1";
+			this.groupBox1.Size = new System.Drawing.Size(168, 48);
+			this.groupBox1.TabIndex = 13;
+			this.groupBox1.TabStop = false;
+			this.groupBox1.Text = "Настройки";
+			// 
+			// flowLayoutPanel4
+			// 
+			this.flowLayoutPanel4.AutoSize = true;
+			this.flowLayoutPanel4.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+			this.flowLayoutPanel4.Controls.Add(this.B_User);
+			this.flowLayoutPanel4.Controls.Add(this.B_UserPoints);
+			this.flowLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.flowLayoutPanel4.Location = new System.Drawing.Point(3, 16);
+			this.flowLayoutPanel4.Name = "flowLayoutPanel4";
+			this.flowLayoutPanel4.Size = new System.Drawing.Size(162, 29);
+			this.flowLayoutPanel4.TabIndex = 0;
+			// 
+			// B_User
+			// 
+			this.B_User.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.B_User.Location = new System.Drawing.Point(3, 3);
+			this.B_User.Name = "B_User";
+			this.B_User.Size = new System.Drawing.Size(75, 23);
+			this.B_User.TabIndex = 16;
+			this.B_User.Text = "User";
+			this.B_User.UseVisualStyleBackColor = true;
+			this.B_User.Click += new System.EventHandler(this.B_User_Click);
+			// 
+			// B_UserPoints
+			// 
+			this.B_UserPoints.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.B_UserPoints.Location = new System.Drawing.Point(84, 3);
+			this.B_UserPoints.Name = "B_UserPoints";
+			this.B_UserPoints.Size = new System.Drawing.Size(75, 23);
+			this.B_UserPoints.TabIndex = 17;
+			this.B_UserPoints.Text = "User Points";
+			this.B_UserPoints.UseVisualStyleBackColor = true;
+			this.B_UserPoints.Click += new System.EventHandler(this.B_UserPoints_Click);
 			// 
 			// bindingNavigator1
 			// 
@@ -364,14 +475,14 @@
             this.bindingNavigatorSeparator2,
             this.bindingNavigatorAddNewItem,
             this.bindingNavigatorDeleteItem});
-			this.bindingNavigator1.Location = new System.Drawing.Point(0, 147);
+			this.bindingNavigator1.Location = new System.Drawing.Point(291, 0);
 			this.bindingNavigator1.MoveFirstItem = this.bindingNavigatorMoveFirstItem;
 			this.bindingNavigator1.MoveLastItem = this.bindingNavigatorMoveLastItem;
 			this.bindingNavigator1.MoveNextItem = this.bindingNavigatorMoveNextItem;
 			this.bindingNavigator1.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
 			this.bindingNavigator1.Name = "bindingNavigator1";
 			this.bindingNavigator1.PositionItem = this.bindingNavigatorPositionItem;
-			this.bindingNavigator1.Size = new System.Drawing.Size(827, 25);
+			this.bindingNavigator1.Size = new System.Drawing.Size(486, 25);
 			this.bindingNavigator1.TabIndex = 10;
 			this.bindingNavigator1.Text = "bindingNavigator1";
 			// 
@@ -463,33 +574,50 @@
 			this.bindingNavigatorSeparator2.Size = new System.Drawing.Size(6, 25);
 			this.bindingNavigatorSeparator2.Visible = false;
 			// 
-			// B_FIO
+			// groupBox3
 			// 
-			this.B_FIO.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.B_FIO.Location = new System.Drawing.Point(84, 61);
-			this.B_FIO.Name = "B_FIO";
-			this.B_FIO.Size = new System.Drawing.Size(75, 23);
-			this.B_FIO.TabIndex = 13;
-			this.B_FIO.Text = "FIO";
-			this.B_FIO.UseVisualStyleBackColor = true;
-			this.B_FIO.Click += new System.EventHandler(this.B_FIO_Click);
+			this.groupBox3.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+			this.groupBox3.Controls.Add(this.flowLayoutPanel6);
+			this.groupBox3.Location = new System.Drawing.Point(3, 32);
+			this.groupBox3.Name = "groupBox3";
+			this.groupBox3.Size = new System.Drawing.Size(191, 112);
+			this.groupBox3.TabIndex = 15;
+			this.groupBox3.TabStop = false;
+			this.groupBox3.Text = "Данные";
 			// 
-			// B_Phone
+			// flowLayoutPanel6
 			// 
-			this.B_Phone.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.B_Phone.Location = new System.Drawing.Point(3, 90);
-			this.B_Phone.Name = "B_Phone";
-			this.B_Phone.Size = new System.Drawing.Size(75, 23);
-			this.B_Phone.TabIndex = 14;
-			this.B_Phone.Text = "Phone";
-			this.B_Phone.UseVisualStyleBackColor = true;
-			this.B_Phone.Click += new System.EventHandler(this.B_Phone_Click);
+			this.flowLayoutPanel6.AutoSize = true;
+			this.flowLayoutPanel6.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+			this.flowLayoutPanel6.Controls.Add(this.B_Limit);
+			this.flowLayoutPanel6.Controls.Add(this.B_Tariff);
+			this.flowLayoutPanel6.Controls.Add(this.B_Phone);
+			this.flowLayoutPanel6.Controls.Add(this.B_FIO);
+			this.flowLayoutPanel6.Controls.Add(this.B_Address);
+			this.flowLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.flowLayoutPanel6.Location = new System.Drawing.Point(3, 16);
+			this.flowLayoutPanel6.Name = "flowLayoutPanel6";
+			this.flowLayoutPanel6.Size = new System.Drawing.Size(185, 93);
+			this.flowLayoutPanel6.TabIndex = 13;
+			// 
+			// flowLayoutPanel7
+			// 
+			this.flowLayoutPanel7.AutoSize = true;
+			this.flowLayoutPanel7.Controls.Add(this.flowLayoutPanel1);
+			this.flowLayoutPanel7.Controls.Add(this.flowLayoutPanel3);
+			this.flowLayoutPanel7.Dock = System.Windows.Forms.DockStyle.Top;
+			this.flowLayoutPanel7.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+			this.flowLayoutPanel7.Location = new System.Drawing.Point(0, 0);
+			this.flowLayoutPanel7.Name = "flowLayoutPanel7";
+			this.flowLayoutPanel7.Size = new System.Drawing.Size(291, 180);
+			this.flowLayoutPanel7.TabIndex = 13;
+			this.flowLayoutPanel7.WrapContents = false;
 			// 
 			// FormMain
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(827, 620);
+			this.ClientSize = new System.Drawing.Size(777, 620);
 			this.Controls.Add(this.PG_Result);
 			this.Controls.Add(this.bindingNavigator1);
 			this.Controls.Add(this.panel1);
@@ -504,12 +632,22 @@
 			((System.ComponentModel.ISupportInitialize)(this.BS_Result)).EndInit();
 			this.panel1.ResumeLayout(false);
 			this.panel1.PerformLayout();
+			this.groupBox2.ResumeLayout(false);
 			this.flowLayoutPanel3.ResumeLayout(false);
 			this.flowLayoutPanel3.PerformLayout();
 			this.flowLayoutPanel2.ResumeLayout(false);
+			this.flowLayoutPanel2.PerformLayout();
+			this.groupBox1.ResumeLayout(false);
+			this.groupBox1.PerformLayout();
+			this.flowLayoutPanel4.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.bindingNavigator1)).EndInit();
 			this.bindingNavigator1.ResumeLayout(false);
 			this.bindingNavigator1.PerformLayout();
+			this.groupBox3.ResumeLayout(false);
+			this.groupBox3.PerformLayout();
+			this.flowLayoutPanel6.ResumeLayout(false);
+			this.flowLayoutPanel7.ResumeLayout(false);
+			this.flowLayoutPanel7.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -555,6 +693,16 @@
         private System.Windows.Forms.Button B_AllBatches;
         private System.Windows.Forms.Button B_FIO;
         private System.Windows.Forms.Button B_Phone;
+        private System.Windows.Forms.Button B_Tariff;
+        private System.Windows.Forms.Button B_User;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel5;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel4;
+        private System.Windows.Forms.Button B_UserPoints;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel7;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel6;
     }
 }
 

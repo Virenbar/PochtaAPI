@@ -124,7 +124,7 @@ namespace PochtaAPI
         [Obsolete]
         private StringContent ToString(object content)
         {
-            var json = JsonConvert.SerializeObject(content);
+            var json = JsonConvert.SerializeObject(content, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
             return new StringContent(json, Encoding.UTF8, "application/json");
         }
     }

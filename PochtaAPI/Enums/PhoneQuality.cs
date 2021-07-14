@@ -82,6 +82,6 @@ namespace PochtaAPI.Enums
         /// <summary>
         /// Телефон не может быть распознан
         /// </summary>
-        INCORRECT_DATA,
+        INCORRECT_DATA
     }
 }

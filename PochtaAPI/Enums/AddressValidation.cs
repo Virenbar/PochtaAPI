@@ -83,6 +83,6 @@
         /// <summary>
         /// На проверку, не по справочнику
         /// </summary>
-        NOT_VALIDATED_DICTIONARY,
+        NOT_VALIDATED_DICTIONARY
     }
 }

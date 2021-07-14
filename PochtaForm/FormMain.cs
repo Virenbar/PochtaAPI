@@ -4,6 +4,7 @@ using PochtaAPI.STypes;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using PochtaAPI.Enums;
 
 namespace PochtaForm
 {
@@ -87,6 +88,14 @@ namespace PochtaForm
             SetResult(LO);
         }
 
+        private async void B_AllBatches_Click(object sender, EventArgs e)
+        {
+            var A = await SC.GetAllBatches();
+            SetResult(A);
+        }
+
+        #region ДАННЫЕ
+
         private async void B_Limit_Click(object sender, EventArgs e)
         {
             var A = await SC.GetAPILimit();
@@ -95,19 +104,13 @@ namespace PochtaForm
 
         private async void B_Address_Click(object sender, EventArgs e)
         {
-            var AL = new List<Address>
+            var AL = new List<AddressRequest>
             {
-                new Address("г. Москва, Варшавское шоссе, 37"),
-                new Address("г. Новосибирск, ул. Жуковского, 100/4")
+                new AddressRequest("г. Москва, Варшавское шоссе, 37"),
+                new AddressRequest("г. Новосибирск, ул. Жуковского, 100/4")
             };
             var ALC = await SC.CleanAddress(AL);
             SetResult(ALC);
-        }
-
-        private async void B_AllBatches_Click(object sender, EventArgs e)
-        {
-            var A = await SC.GetAllBatches();
-            SetResult(A);
         }
 
         private async void B_FIO_Click(object sender, EventArgs e)
@@ -135,6 +138,45 @@ namespace PochtaForm
             var R = await SC.CleanPhone(L);
             SetResult(R);
         }
+
+        private async void B_Tariff_Click(object sender, EventArgs e)
+        {
+            var MI = new MailInfo
+            {
+                IndexFrom = "101000",
+                IndexTo = "644015",
+                MailCategory = MailCategory.ORDINARY,
+                MailType = MailType.POSTAL_PARCEL,
+                Mass = 1000,
+                Dimension = new Dimension
+                {
+                    Height = 2,
+                    Length = 5,
+                    Width = 197
+                },
+                Fragile = true
+            };
+            var R = await SC.CalculateTariff(MI);
+            SetResult(R);
+        }
+
+        #endregion ДАННЫЕ
+
+        #region НАСТРОЙКИ
+
+        private async void B_User_Click(object sender, EventArgs e)
+        {
+            var R = await SC.GetUserSettings();
+            SetResult(R);
+        }
+
+        private async void B_UserPoints_Click(object sender, EventArgs e)
+        {
+            var R = await SC.GetShippingPoints();
+            SetResult(R);
+        }
+
+        #endregion НАСТРОЙКИ
 
         #endregion Sending
     }

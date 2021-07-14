@@ -148,8 +148,24 @@ namespace PochtaAPI
         #endregion ВОЗВРАТЫ
 
         #region НАСТРОЙКИ
-        //TODO Текущие точки сдачи
-        //TODO Текущие настройки пользователя
+
+        /// <summary>
+        /// Текущие точки сдачи
+        /// </summary>
+        /// <returns>Возвращает список текущих точек сдачи</returns>
+        public Task<List<UserShippingPoint>> GetShippingPoints()
+        {
+            return CallAPIGet<List<UserShippingPoint>>("user-shipping-points");
+        }
+
+        /// <summary>
+        /// Текущие настройки пользователя
+        /// </summary>
+        public Task<UserSettings> GetUserSettings()
+        {
+            return CallAPIGet<UserSettings>("settings");
+        }
+
         #endregion НАСТРОЙКИ
 
         #region ДАННЫЕ
@@ -157,7 +173,7 @@ namespace PochtaAPI
         /// <summary>
         /// Нормализация адреса
         /// </summary>
-        public Task<List<AddressClean>> CleanAddress(IList<Address> data)
+        public Task<List<AddressClean>> CleanAddress(IList<AddressRequest> data)
         {
             return CallAPI<List<AddressClean>>("clean/address", data);
         }
@@ -189,9 +205,9 @@ namespace PochtaAPI
         /// <summary>
         /// Расчет стоимости пересылки
         /// </summary>
-        private Task<string> Tariff(object data)
+        public Task<TariffInfo> CalculateTariff(MailInfo data)
         {
-            return CallAPI<string>("tariff", data);
+            return CallAPI<TariffInfo>("tariff", data);
         }
 
         #endregion ДАННЫЕ

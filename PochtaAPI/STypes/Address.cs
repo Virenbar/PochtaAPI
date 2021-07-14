@@ -1,41 +1,59 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using PochtaAPI.Enums;
 using System.Runtime.Serialization;
 
+#pragma warning disable CS1591
+//TODO Описание
 namespace PochtaAPI.STypes
 {
-    /// <summary>
-    /// Адрес для нормализации
-    /// </summary>
     [DataContract]
     public class Address
     {
-        /// <summary>
-        /// Создаёт новый адрес
-        /// </summary>
-        /// <param name="address"></param>
-        public Address(string address) : this(address, Guid.NewGuid().ToString()) { }
+        [JsonConverter(typeof(StringEnumConverter))]
+        [DataMember(Name = "address-type")]
+        public AddressType AddressType { get; set; }
 
-        /// <summary>
-        /// Создаёт новый адрес c указанным ID
-        /// </summary>
-        /// <param name="address"></param>
-        /// <param name="id"></param>
-        public Address(string address, string id)
-        {
-            ID = id;
-            OriginalAddress = address;
-        }
+        [DataMember(Name = "area")]
+        public string Area { get; set; }
 
-        /// <summary>
-        /// Идентификатор записи
-        /// </summary>
-        [DataMember(Name = "id")]
-        public string ID { get; set; }
+        [DataMember(Name = "building")]
+        public string Building { get; set; }
 
-        /// <summary>
-        /// Оригинальный адрес одной строкой
-        /// </summary>
-        [DataMember(Name = "original-address")]
-        public string OriginalAddress { get; set; }
+        [DataMember(Name = "corpus")]
+        public string Corpus { get; set; }
+
+        [DataMember(Name = "hotel")]
+        public string Hotel { get; set; }
+
+        [DataMember(Name = "house")]
+        public string House { get; set; }
+
+        [DataMember(Name = "index")]
+        public string Index { get; set; }
+
+        [DataMember(Name = "letter")]
+        public string Letter { get; set; }
+
+        [DataMember(Name = "location")]
+        public string Location { get; set; }
+
+        [DataMember(Name = "num-address-type")]
+        public string NumAddressType { get; set; }
+
+        [DataMember(Name = "place")]
+        public string Place { get; set; }
+
+        [DataMember(Name = "region")]
+        public string Region { get; set; }
+
+        [DataMember(Name = "room")]
+        public string Room { get; set; }
+
+        [DataMember(Name = "slash")]
+        public string Slash { get; set; }
+
+        [DataMember(Name = "street")]
+        public string Street { get; set; }
     }
 }

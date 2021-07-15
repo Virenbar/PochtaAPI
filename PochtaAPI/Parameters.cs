@@ -9,7 +9,7 @@ namespace PochtaAPI
     /// </summary>
     public class Parameters : IEnumerable<KeyValuePair<string, string>>
     {
-        private Dictionary<string, string> Query = new Dictionary<string, string>();
+        private readonly Dictionary<string, string> Query = new Dictionary<string, string>();
 
         /// <summary>
         /// Инициализирует новый пустой фильтр
@@ -28,7 +28,7 @@ namespace PochtaAPI
 
         internal string ToQuery()
         {
-            var r = Query.Select(KV => $"{KV.Key}={KV.Value}");
+            var r = Query.Where(KV => KV.Value != null).Select(KV => $"{KV.Key.ToLower()}={KV.Value}");
             return string.Join("&", r);
         }
 

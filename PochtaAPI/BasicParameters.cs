@@ -8,28 +8,30 @@ namespace PochtaAPI
     public class BasicParameters : Parameters
     {
         /// <summary>
-        /// Инициализирует новые параметры
-        /// </summary>
-        public BasicParameters() { }
-
-        /// <summary>
-        /// Инициализирует новые параметры
-        /// </summary>
-        public BasicParameters(int? size, SortType sort, int? page) { }
-
-        /// <summary>
         /// Номер страницы
         /// </summary>
-        public int Page { set => this["page"] = value.ToString(); }
+        public int? Page
+        {
+            set => this[nameof(Page)] = value.ToString();
+            get => this[nameof(Page)].GetValueOrNull<int>();
+        }
 
         /// <summary>
         /// Количество записей на странице
         /// </summary>
-        public int Size { set => this["size"] = value.ToString(); }
+        public int? Size
+        {
+            set => this[nameof(Size)] = value.ToString();
+            get => this[nameof(Size)].GetValueOrNull<int>();
+        }
 
         /// <summary>
         /// Критерий сортировки
         /// </summary>
-        public SortType Sort { set => this["sort"] = value.ToString().ToLower(); }
+        public SortType? Sort
+        {
+            set => this[nameof(Sort)] = value.ToString().ToLower();
+            get => this[nameof(Sort)].GetValueOrNull<SortType>();
+        }
     }
 }

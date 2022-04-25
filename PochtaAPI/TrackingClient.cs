@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Net;
 
 namespace PochtaAPI
 {
@@ -20,6 +21,11 @@ namespace PochtaAPI
         private readonly AuthorizationHeader AH;
         private readonly FederalClientClient FCC;
         private readonly OperationHistory12Client OHC;
+
+        static TrackingClient()
+        {
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
+        }
 
         /// <summary>
         /// Инициализирует новый клиент для работы с API

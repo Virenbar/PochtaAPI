@@ -4,7 +4,6 @@
     <PackageId>Virenbar.PochtaAPI</PackageId>
     <TargetFrameworks>netstandard2.0;net452</TargetFrameworks>
     <Description>Library for pochta.ru API</Description>
-    <Version>1.0.2</Version>
     <Authors>Virenbar</Authors>
     <Copyright>Virenbar</Copyright>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>

@@ -16,7 +16,7 @@ namespace PochtaAPI.TTypes
             OperationParameters OP = OHR.OperationParameters;
             Date = OP.OperDate;
             Operation = OP.OperType.Name;
-            if (OP.OperAttr.Name.Length > 0) { Operation += $" ({ OP.OperAttr.Name})"; }
+            if (OP.OperAttr.Name?.Length > 0) { Operation += $" ({ OP.OperAttr.Name})"; }
             OperAttrID = OP.OperAttr.Id;
             OperTypeID = OP.OperType.Id;
             OperType = (OperType)OperTypeID;

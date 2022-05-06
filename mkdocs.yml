@@ -43,6 +43,7 @@ markdown_extensions:
   - meta
   - admonition
   - pymdownx.highlight
+  - pymdownx.inlinehilite
   - pymdownx.superfences
   - attr_list
   - toc:

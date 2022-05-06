@@ -1,0 +1,64 @@
+﻿site_name: Документация PochtaAPI
+site_description: "Библиотека для работы с API Почты России"
+site_url: https://virenbar.ru/PochtaAPI/
+copyright: Copyright &copy; 2022 Virenbar
+theme:
+  logo: assets/images/logo.png
+  favicon: assets/images/favicon.ico
+  language: ru
+  features:
+    - navigation.instant
+    - navigation.top
+    - navigation.sections
+    - navigation.indexes
+  font:
+    text: "Fira Sans"
+    code: "Fira Code"
+  name: material
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/toggle-switch-off-outline
+        name: Включить тёмную тему
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/toggle-switch
+        name: Включить светлую тему
+  custom_dir: overrides
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/Virenbar/PochtaAPI
+  # analytics:
+  #   provider: google
+  #   property: G-XXXXXXXXXX
+extra_css:
+  - stylesheets/extra.css
+repo_name: "Virenbar/PochtaAPI"
+repo_url: https://github.com/Virenbar/PochtaAPI
+edit_uri: edit/master/docs/
+markdown_extensions:
+  - meta
+  - admonition
+  - pymdownx.highlight
+  - pymdownx.superfences
+  - attr_list
+  - toc:
+      permalink: "#"
+plugins:
+  - search:
+      lang:
+        - en
+        - ru
+nav:
+  - index.md
+  - PochtaAPI:
+      - Авторизация: authorization.md
+      - Отслеживание: tracking.md
+      - Отправка(WIP): otpravka.md
+  - Ссылки:
+      - Почта России: "https://www.pochta.ru/"
+      - API Отслеживание: "https://tracking.pochta.ru/specification"
+      - API Отправка: "https://otpravka.pochta.ru/specification#/main"

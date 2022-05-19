@@ -13,7 +13,7 @@ namespace PochtaAPI.TTypes
         internal Batch(file File)
         {
             DatePrepared = DateTime.Parse(File.DatePreparation);
-            File.Item.Select(I => new MailItem(I)).ToList();
+            File.Item.Select(I => new BatchMailItem(I)).ToList();
         }
 
         /// <summary>

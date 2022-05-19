@@ -14,21 +14,15 @@ namespace PochtaAPI.TTypes
         {
             Address = $"{OHR.AddressParameters.OperationAddress.Description} ({OHR.AddressParameters.OperationAddress.Index})";
             OperationParameters OP = OHR.OperationParameters;
-            Date = OP.OperDate;
             Operation = OP.OperType.Name;
             if (OP.OperAttr.Name?.Length > 0) { Operation += $" ({ OP.OperAttr.Name})"; }
-            OperAttrID = OP.OperAttr.Id;
-            OperTypeID = OP.OperType.Id;
-            OperType = (OperType)OperTypeID;
-        }
-
-        internal HistoryRecord(operation O)
-        {
-            Date = DateTime.Parse(O.DateOper);
-            Operation = O.OperName;
-            OperAttrID = int.Parse(O.OperCtgID);
-            OperTypeID = int.Parse(O.OperTypeID);
-            OperType = (OperType)OperTypeID;
+            //Operation
+            OperationDate = OP.OperDate;
+            OperationTypeID = OP.OperType.Id;
+            OperationTypeName = OP.OperType.Name;
+            OperationType = (OperationType)OperationTypeID;
+            OperationAttributeID = OP.OperAttr.Id;
+            OperationAttributeName = OP.OperAttr.Name;
         }
 
         /// <summary>
@@ -39,7 +33,8 @@ namespace PochtaAPI.TTypes
         /// <summary>
         /// Дата операции
         /// </summary>
-        public DateTime Date { get; private set; }
+        [Obsolete]
+        public DateTime Date => OperationDate;
 
         /// <summary>
         /// Описание операции
@@ -49,22 +44,55 @@ namespace PochtaAPI.TTypes
         /// <summary>
         /// Код атрибута
         /// </summary>
-        public int OperAttrID { get; private set; }
+        public int OperationAttributeID { get; private set; }
+
+        /// <summary>
+        /// Название атрибута
+        /// </summary>
+        public string OperationAttributeName { get; private set; }
+
+        /// <summary>
+        /// Дата операции
+        /// </summary>
+        public DateTime OperationDate { get; private set; }
 
         /// <summary>
         /// Тип операции
         /// </summary>
-        public OperType OperType { get; private set; }
+        public OperationType OperationType { get; private set; }
 
         /// <summary>
         /// Код операции
         /// </summary>
-        public int OperTypeID { get; private set; }
+        public int OperationTypeID { get; private set; }
+
+        /// <summary>
+        /// Название операции
+        /// </summary>
+        public string OperationTypeName { get; private set; }
+
+        /// <summary>
+        /// Код атрибута
+        /// </summary>
+        [Obsolete]
+        public int OperAttrID => OperationAttributeID;
+
+        /// <summary>
+        /// Тип операции
+        /// </summary>
+        [Obsolete]
+        public OperationType OperType => OperationType;
+
+        /// <summary>
+        /// Код операции
+        /// </summary>
+        [Obsolete]
+        public int OperTypeID => OperationTypeID;
 
         /// <summary>
         /// Описание записи о операции
         /// </summary>
         /// <returns></returns>
-        public override string ToString() => $"{Date}: {Operation}";
+        public override string ToString() => $"{OperationDate}: {Operation}";
     }
 }

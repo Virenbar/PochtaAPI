@@ -12,21 +12,16 @@ namespace PochtaAPI.TTypes
     /// </summary>
     public class MailItem
     {
+        private readonly OperationHistoryRecord First;
+
         internal MailItem(getOperationHistoryResponse OHR)
         {
             History = OHR.OperationHistoryData.Select(O => new HistoryRecord(O)).ToList();
-            var First = OHR.OperationHistoryData.FirstOrDefault();
-            Mass = int.Parse(First.ItemParameters.Mass);
+            First = OHR.OperationHistoryData.FirstOrDefault();
+            //Finance
             Rate = decimal.Parse(First.FinanceParameters.MassRate) / 100;
-            Recipient = First.UserParameters.Rcpn;
-            TrackCode = First.ItemParameters.Barcode;
-            Type = First.ItemParameters.ComplexItemName;
-        }
-
-        internal MailItem(item Item)
-        {
-            History = Item.Operation.Select(I => new HistoryRecord(I)).ToList();
-            TrackCode = Item.Barcode;
+            //Item
+            Mass = int.Parse(First.ItemParameters.Mass);
         }
 
         /// <summary>
@@ -35,9 +30,44 @@ namespace PochtaAPI.TTypes
         public List<HistoryRecord> History { get; private set; }
 
         /// <summary>
+        /// Содержит текстовое описание вида и категории отправления
+        /// </summary>
+        public string ComplexItemName => First?.ItemParameters.ComplexItemName;
+
+        /// <summary>
         /// Статус получения
         /// </summary>
-        public bool IsReceived { get => History.Last().OperType == OperType.Receiving; }
+        public bool IsReceived => History.Last().OperationType == OperationType.Delivery;
+
+        /// <summary>
+        /// Код категории почтового отправления
+        /// </summary>
+        public int? MailCategoryID => First?.ItemParameters?.MailCtg.Id;
+
+        /// <summary>
+        /// Название категории почтового отправления
+        /// </summary>
+        public string MailCategoryName => First?.ItemParameters?.MailCtg.Name;
+
+        /// <summary>
+        /// Код разряда почтового отправления
+        /// </summary>
+        public int? MailRankID => First?.ItemParameters?.MailRank.Id;
+
+        /// <summary>
+        /// Название разряда почтового отправления
+        /// </summary>
+        public string MailRankName => First?.ItemParameters?.MailRank.Name;
+
+        /// <summary>
+        /// Код вида почтового отправления
+        /// </summary>
+        public int? MailTypeID => First?.ItemParameters?.MailType.Id;
+
+        /// <summary>
+        /// Название вида почтового отправления
+        /// </summary>
+        public string MailTypeName => First?.ItemParameters?.MailType.Name;
 
         /// <summary>
         /// Масса
@@ -45,34 +75,60 @@ namespace PochtaAPI.TTypes
         public int Mass { get; private set; }
 
         /// <summary>
+        /// Код отметки почтового отправления
+        /// </summary>
+        public int? PostMarkID => First?.ItemParameters?.PostMark.Id;
+
+        /// <summary>
+        /// Наименование отметки почтового отправления
+        /// </summary>
+        public string PostMarkName => First?.ItemParameters?.PostMark.Name;
+
+        /// <summary>
         /// Стоимость отправки
         /// </summary>
         public decimal Rate { get; private set; }
 
         /// <summary>
+        /// Дата получения
+        /// </summary>
+        public DateTime? ReceiveDate => History.FirstOrDefault(H => H.OperationType == OperationType.Delivery)?.OperationDate;
+
+        /// <summary>
         /// Получатель
         /// </summary>
-        public string Recipient { get; private set; }
+        public string Recipient => First?.UserParameters?.Rcpn;
 
         /// <summary>
         /// Дата отправки
         /// </summary>
-        public DateTime? SendDate { get => History.FirstOrDefault()?.Date; }
+        public DateTime? SendDate => History.FirstOrDefault()?.OperationDate;
 
         /// <summary>
-        /// Дата получения
+        /// Содержит данные об отправителе
         /// </summary>
-        public DateTime? ReceiveDate { get => History.FirstOrDefault(H => H.OperTypeID == 2)?.Date; }
+        public string Sender => First?.UserParameters.Sndr;
 
         /// <summary>
-        /// Идентификатор
+        /// Идентификатор категории отправителя
         /// </summary>
-        public string TrackCode { get; private set; }
+        public int? SenderCategoryID => First?.UserParameters?.SendCtg.Id;
+
+        /// <summary>
+        /// Название категории отправителя
+        /// </summary>
+        public string SenderCategoryName => First?.UserParameters?.SendCtg.Name;
+
+        /// <summary>
+        /// Идентификатор почтового отправления
+        /// </summary>
+        public string TrackCode => First.ItemParameters.Barcode;
 
         /// <summary>
         /// Тип
         /// </summary>
-        public string Type { get; private set; }
+        [Obsolete]
+        public string Type => ComplexItemName;
 
         internal List<HistoryRecord> NoteHistory { get; set; }
     }

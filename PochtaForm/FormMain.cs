@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using PochtaAPI.Enums;
+using System.ComponentModel;
 
 namespace PochtaForm
 {
@@ -12,24 +13,24 @@ namespace PochtaForm
     {
         #region Form
 
+        private SendingClient SC;
+
+        private TrackingClient TC;
+
         public FormMain()
         {
             InitializeComponent();
             ResetClients();
         }
 
-        private TrackingClient TC;
-        private SendingClient SC;
-
-        private void ResetClients()
-        {
-            TC = new TrackingClient(Properties.Settings.Default.Login, Properties.Settings.Default.Password);
-            SC = new SendingClient(Properties.Settings.Default.Token, Properties.Settings.Default.Key);
-        }
-
         private void B_Unlock_Click(object sender, EventArgs e)
         {
             TLP.Enabled = true;
+        }
+
+        private void BS_Result_CurrentChanged(object sender, EventArgs e)
+        {
+            PG_Result.SelectedObject = BS_Result.Current;
         }
 
         private void FormMain_FormClosed(object sender, FormClosedEventArgs e)
@@ -43,14 +44,15 @@ namespace PochtaForm
             if (TB_Login.Text.Length + TB_Password.Text.Length > 0) { TLP.Enabled = false; }
         }
 
+        private void ResetClients()
+        {
+            TC = new TrackingClient(Properties.Settings.Default.Login, Properties.Settings.Default.Password);
+            SC = new SendingClient(Properties.Settings.Default.Token, Properties.Settings.Default.Key);
+        }
+
         private void SetResult(object Result)
         {
             BS_Result.DataSource = Result;
-            PG_Result.SelectedObject = BS_Result.Current;
-        }
-
-        private void BS_Result_CurrentChanged(object sender, EventArgs e)
-        {
             PG_Result.SelectedObject = BS_Result.Current;
         }
 
@@ -68,6 +70,7 @@ namespace PochtaForm
         {
             MailItem MI = false ? TC.GetHistory(TB_Track.Text) : await TC.GetHistoryAsync(TB_Track.Text);
 
+            TypeDescriptor.AddAttributes(MI.History, new Attribute[] { new ReadOnlyAttribute(true) });
             BS_Result.DataSource = MI;
             PG_Result.SelectedObject = BS_Result.Current;
         }
@@ -75,6 +78,12 @@ namespace PochtaForm
         #endregion Tracking
 
         #region Sending
+
+        private async void B_AllBatches_Click(object sender, EventArgs e)
+        {
+            var A = await SC.GetAllBatches();
+            SetResult(A);
+        }
 
         private async void B_Order_Click(object sender, EventArgs e)
         {
@@ -88,19 +97,7 @@ namespace PochtaForm
             SetResult(LO);
         }
 
-        private async void B_AllBatches_Click(object sender, EventArgs e)
-        {
-            var A = await SC.GetAllBatches();
-            SetResult(A);
-        }
-
         #region ДАННЫЕ
-
-        private async void B_Limit_Click(object sender, EventArgs e)
-        {
-            var A = await SC.GetAPILimit();
-            SetResult(A);
-        }
 
         private async void B_Address_Click(object sender, EventArgs e)
         {
@@ -122,6 +119,12 @@ namespace PochtaForm
             };
             var R = await SC.CleanFIO(L);
             SetResult(R);
+        }
+
+        private async void B_Limit_Click(object sender, EventArgs e)
+        {
+            var A = await SC.GetAPILimit();
+            SetResult(A);
         }
 
         private async void B_Phone_Click(object sender, EventArgs e)

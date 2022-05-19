@@ -4,7 +4,7 @@
     /// <summary>
     /// Коды операций над отправлениями
     /// </summary>
-    public enum OperType
+    public enum OperationType
     {
         /// <summary>
         /// Прием

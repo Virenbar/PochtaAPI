@@ -50,19 +50,13 @@ namespace PochtaAPI
         /// Получить историю операций по отправлению
         /// </summary>
         /// <param name="TrackCode">Идентификатор РПО</param>
-        public MailItem GetHistory(string TrackCode)
-        {
-            return GetHistoryAsync(TrackCode, false).Result;
-        }
+        public MailItem GetHistory(string TrackCode) => GetHistoryAsync(TrackCode, false).Result;
 
         /// <summary>
         /// Получить историю операций по отправлению
         /// </summary>
         /// <param name="TrackCode">Идентификатор РПО</param>
-        public Task<MailItem> GetHistoryAsync(string TrackCode)
-        {
-            return GetHistoryAsync(TrackCode, false);
-        }
+        public Task<MailItem> GetHistoryAsync(string TrackCode) => GetHistoryAsync(TrackCode, false);
 
         private async Task<MailItem> GetHistoryAsync(string TrackCode, bool IsNote)
         {

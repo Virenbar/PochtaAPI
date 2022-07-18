@@ -1,6 +1,5 @@
 ﻿using Pochta;
 using PochtaAPI.Enums;
-using PochtaPacket;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,23 +15,24 @@ namespace PochtaAPI.TTypes
 
         internal MailItem(getOperationHistoryResponse OHR)
         {
-            History = OHR.OperationHistoryData.Select(O => new HistoryRecord(O)).ToList();
-            First = OHR.OperationHistoryData.FirstOrDefault();
+            var Data = OHR.OperationHistoryData;
+            History = Data.Select(O => new HistoryRecord(O)).ToList();
+            First = Data.FirstOrDefault();
             //Finance
-            Rate = decimal.Parse(First.FinanceParameters.MassRate) / 100;
+            Rate = decimal.Parse(Data.FirstNotNull(H => H.FinanceParameters.MassRate, "0")) / 100;
             //Item
-            Mass = int.Parse(First.ItemParameters.Mass);
+            Mass = int.Parse(Data.FirstNotNull(H => H.ItemParameters.Mass, "0"));
         }
-
-        /// <summary>
-        /// История операций
-        /// </summary>
-        public List<HistoryRecord> History { get; private set; }
 
         /// <summary>
         /// Содержит текстовое описание вида и категории отправления
         /// </summary>
         public string ComplexItemName => First?.ItemParameters.ComplexItemName;
+
+        /// <summary>
+        /// История операций
+        /// </summary>
+        public List<HistoryRecord> History { get; private set; }
 
         /// <summary>
         /// Статус получения

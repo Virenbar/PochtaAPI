@@ -1,6 +1,7 @@
 ﻿using PochtaAPI.STypes;
 using System;
 using System.Collections.Generic;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -17,14 +18,22 @@ namespace PochtaAPI
         /// <param name="Token">Токен</param>
         /// <param name="Login">Логин</param>
         /// <param name="Password">Пароль</param>
-        public SendingClient(string Token, string Login, string Password) : base(Token, Convert.ToBase64String(Encoding.UTF8.GetBytes($"{Login}:{Password}"))) { }
+        public SendingClient(string Token, string Login, string Password) : this(Token, Convert.ToBase64String(Encoding.UTF8.GetBytes($"{Login}:{Password}"))) { }
 
         /// <summary>
         /// Создаёт клиент для работы с API отправки
         /// </summary>
         /// <param name="Token">Токен</param>
         /// <param name="Key">Ключ</param>
-        public SendingClient(string Token, string Key) : base(Token, Key) { }
+        public SendingClient(string Token, string Key) : base()
+        {
+            string URL = "https://otpravka-api.pochta.ru";
+            string V1 = "1.0";
+            EndPoint = $"{URL}/{V1}";
+            Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            Client.DefaultRequestHeaders.Add("Authorization", "AccessToken " + Token);
+            Client.DefaultRequestHeaders.Add("X-User-Authorization", "Basic " + Key);
+        }
 
         #region ЗАКАЗЫ
 
@@ -33,10 +42,7 @@ namespace PochtaAPI
         /// </summary>
         /// <param name="ID">Внутренний идентификатор отправления</param>
         /// <remarks>https://otpravka.pochta.ru/specification#/orders-search_order_byid</remarks>
-        public Task<Order> GetOrderByID(int ID)
-        {
-            return CallAPIGet<Order>($"backlog/{ID}");
-        }
+        public Task<Order> GetOrderByID(int ID) => Get<Order>($"backlog/{ID}");
 
         /// <summary>
         /// Поиск заказа
@@ -46,7 +52,7 @@ namespace PochtaAPI
         public Task<List<Order>> GetOrderByID(string Query)
         {
             var F = new Parameters { { "query", Query } };
-            return CallAPIGet<List<Order>>("backlog/search", F);
+            return Get<List<Order>>("backlog/search", F);
         }
 
         //TODO Создание заказа
@@ -68,18 +74,12 @@ namespace PochtaAPI
         /// Поиск всех партий
         /// </summary>
         /// <param name="filter">Фильтр записей</param>
-        public Task<List<Batch>> GetAllBatches(BatchParameters filter)
-        {
-            return CallAPIGet<List<Batch>>("batch", filter);
-        }
+        public Task<List<Batch>> GetAllBatches(BatchParameters filter) => Get<List<Batch>>("batch", filter);
 
         /// <summary>
         /// Поиск партии по наименованию
         /// </summary>
-        public Task<Batch> GetBatchByName(string Name)
-        {
-            return CallAPIGet<Batch>($"batch/{Name}");
-        }
+        public Task<Batch> GetBatchByName(string Name) => Get<Batch>($"batch/{Name}");
 
         /// <summary>
         /// Запрос данных о заказах в партии
@@ -92,10 +92,7 @@ namespace PochtaAPI
         /// </summary>
         /// <param name="name">Наименование партии</param>
         /// <param name="filter">Фильтр записей</param>
-        public Task<List<Order>> GetOrdersInBatch(string name, BasicParameters filter)
-        {
-            return CallAPIGet<List<Order>>($"batch/{name}/shipment", filter);
-        }
+        public Task<List<Order>> GetOrdersInBatch(string name, BasicParameters filter) => Get<List<Order>>($"batch/{name}/shipment", filter);
 
         //TODO Создание партии из N заказов
         //TODO Изменение дня отправки в почтовое отделение
@@ -153,18 +150,12 @@ namespace PochtaAPI
         /// Текущие точки сдачи
         /// </summary>
         /// <returns>Возвращает список текущих точек сдачи</returns>
-        public Task<List<UserShippingPoint>> GetShippingPoints()
-        {
-            return CallAPIGet<List<UserShippingPoint>>("user-shipping-points");
-        }
+        public Task<List<UserShippingPoint>> ShippingPoints => Get<List<UserShippingPoint>>("user-shipping-points");
 
         /// <summary>
         /// Текущие настройки пользователя
         /// </summary>
-        public Task<UserSettings> GetUserSettings()
-        {
-            return CallAPIGet<UserSettings>("settings");
-        }
+        public Task<UserSettings> UserSettings => Get<UserSettings>("settings");
 
         #endregion НАСТРОЙКИ
 
@@ -173,42 +164,27 @@ namespace PochtaAPI
         /// <summary>
         /// Нормализация адреса
         /// </summary>
-        public Task<List<AddressClean>> CleanAddress(IList<AddressRequest> data)
-        {
-            return CallAPI<List<AddressClean>>("clean/address", data);
-        }
+        public Task<List<AddressClean>> CleanAddress(IList<AddressRequest> data) => Post<List<AddressClean>>("clean/address", data);
 
         /// <summary>
         /// Текущее количество запросов по API
         /// </summary>
-        public Task<APILimit> GetAPILimit()
-        {
-            return CallAPIGet<APILimit>("settings/limit");
-        }
+        public Task<APILimit> GetAPILimit() => Get<APILimit>("settings/limit");
 
         /// <summary>
         /// Нормализация ФИО
         /// </summary>
-        public Task<List<FIOClean>> CleanFIO(IList<FIO> data)
-        {
-            return CallAPI<List<FIOClean>>("clean/physical", data);
-        }
+        public Task<List<FIOClean>> CleanFIO(IList<FIO> data) => Post<List<FIOClean>>("clean/physical", data);
 
         /// <summary>
         /// Нормализация телефона
         /// </summary>
-        public Task<List<PhoneClean>> CleanPhone(IList<Phone> data)
-        {
-            return CallAPI<List<PhoneClean>>("clean/phone", data);
-        }
+        public Task<List<PhoneClean>> CleanPhone(IList<Phone> data) => Post<List<PhoneClean>>("clean/phone", data);
 
         /// <summary>
         /// Расчет стоимости пересылки
         /// </summary>
-        public Task<TariffInfo> CalculateTariff(MailInfo data)
-        {
-            return CallAPI<TariffInfo>("tariff", data);
-        }
+        public Task<TariffInfo> CalculateTariff(MailInfo data) => Post<TariffInfo>("tariff", data);
 
         #endregion ДАННЫЕ
     }

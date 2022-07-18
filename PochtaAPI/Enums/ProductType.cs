@@ -1,5 +1,8 @@
 ﻿namespace PochtaAPI.Enums
 {
+    /// <summary>
+    /// Тип посылки
+    /// </summary>
     public enum ProductType
     {
         /// <summary>

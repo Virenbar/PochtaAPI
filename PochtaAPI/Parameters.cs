@@ -1,40 +1,35 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
+using System.Collections.Specialized;
+using System.Web;
 
 namespace PochtaAPI
 {
     /// <summary>
-    /// Фильтр
+    /// Параметры запроса
     /// </summary>
-    public class Parameters : IEnumerable<KeyValuePair<string, string>>
+    public class Parameters : IEnumerable
     {
-        private readonly Dictionary<string, string> Query = new Dictionary<string, string>();
-
-        /// <summary>
-        /// Инициализирует новый пустой фильтр
-        /// </summary>
-        internal Parameters() { }
+        private readonly NameValueCollection Query = HttpUtility.ParseQueryString(string.Empty);
 
         internal int Count => Query.Count;
 
         internal string this[string name]
         {
-            get => Query.ContainsKey(name) ? Query[name] : null;
+            get => Query[name];
             set => Query[name] = value;
         }
 
         internal void Add(string name, string value) => this[name] = value;
 
-        internal string ToQuery()
+        internal void Add(string name, IList<string> values)
         {
-            var r = Query.Where(KV => KV.Value != null).Select(KV => $"{KV.Key.ToLower()}={KV.Value}");
-            return string.Join("&", r);
+            foreach (string value in values) { Add(name, value); };
         }
 
-        #region IEnumerable
+        internal string ToQuery() => Query.ToString();
 
-        IEnumerator<KeyValuePair<string, string>> IEnumerable<KeyValuePair<string, string>>.GetEnumerator() => Query.GetEnumerator();
+        #region IEnumerable
 
         IEnumerator IEnumerable.GetEnumerator() => Query.GetEnumerator();
 

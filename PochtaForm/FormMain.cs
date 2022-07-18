@@ -169,13 +169,13 @@ namespace PochtaForm
 
         private async void B_User_Click(object sender, EventArgs e)
         {
-            var R = await SC.GetUserSettings();
+            var R = await SC.UserSettings;
             SetResult(R);
         }
 
         private async void B_UserPoints_Click(object sender, EventArgs e)
         {
-            var R = await SC.GetShippingPoints();
+            var R = await SC.ShippingPoints;
             SetResult(R);
         }
 

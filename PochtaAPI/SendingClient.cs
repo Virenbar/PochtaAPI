@@ -25,7 +25,7 @@ namespace PochtaAPI
         /// </summary>
         /// <param name="Token">Токен</param>
         /// <param name="Key">Ключ</param>
-        public SendingClient(string Token, string Key) : base()
+        public SendingClient(string Token, string Key)
         {
             string URL = "https://otpravka-api.pochta.ru";
             string V1 = "1.0";

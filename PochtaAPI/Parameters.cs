@@ -24,7 +24,7 @@ namespace PochtaAPI
 
         internal void Add(string name, IList<string> values)
         {
-            foreach (string value in values) { Add(name, value); };
+            foreach (string value in values) { Add(name, value); }
         }
 
         internal string ToQuery() => Query.ToString();

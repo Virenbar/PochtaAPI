@@ -30,7 +30,7 @@ namespace PochtaAPI
         /// </summary>
         public SortType? Sort
         {
-            set => this[nameof(Sort)] = value.ToString().ToLower();
+            set => this[nameof(Sort)] = value.ToString().ToLowerInvariant();
             get => this[nameof(Sort)].GetValueOrNull<SortType>();
         }
     }

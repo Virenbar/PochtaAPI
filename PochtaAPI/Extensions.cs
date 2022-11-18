@@ -1,5 +1,5 @@
 ﻿using PochtaAPI.Enums;
-using PochtaAPI.STypes;
+using PochtaAPI.Models.Sending;
 using System;
 using System.Collections.Generic;
 using System.Linq;

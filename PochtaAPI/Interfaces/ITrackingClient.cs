@@ -1,17 +1,17 @@
-﻿using PochtaAPI.TTypes;
+﻿using PochtaAPI.Models.Tracking;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace PochtaAPI.Interfaces
 {
-	internal interface ITrackingClient
-	{
-		MailItem GetHistory(string TrackCode);
+    internal interface ITrackingClient
+    {
+        MailItem GetHistory(string TrackCode);
 
-		Task<MailItem> GetHistoryAsync(string TrackCode);
+        Task<MailItem> GetHistoryAsync(string TrackCode);
 
-		Task<Batch> GetBatchAsync(Ticket Ticket);
+        Task<Batch> GetBatchAsync(Ticket Ticket);
 
-		Task<Ticket> GetTicketAsync(IEnumerable<string> TrackCodes);
-	}
+        Task<Ticket> GetTicketAsync(IEnumerable<string> TrackCodes);
+    }
 }

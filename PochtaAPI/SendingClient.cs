@@ -1,4 +1,4 @@
-﻿using PochtaAPI.STypes;
+﻿using PochtaAPI.Models.Sending;
 using System;
 using System.Collections.Generic;
 using System.Net.Http.Headers;

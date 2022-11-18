@@ -1,6 +1,6 @@
 ﻿using PochtaAPI;
-using PochtaAPI.TTypes;
-using PochtaAPI.STypes;
+using PochtaAPI.Models.Tracking;
+using PochtaAPI.Models.Sending;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;

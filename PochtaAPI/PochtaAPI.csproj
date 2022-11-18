@@ -24,19 +24,19 @@
     <ItemGroup>
         <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
         <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
-        <PackageReference Include="MinVer" Version="4.1.0" PrivateAssets="All" />
+        <PackageReference Include="MinVer" Version="4.2.0" PrivateAssets="All" />
     </ItemGroup>
     <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0' ">
-        <PackageReference Include="System.ServiceModel.Duplex" Version="4.9.*" />
-        <PackageReference Include="System.ServiceModel.Http" Version="4.9.*" />
-        <PackageReference Include="System.ServiceModel.NetTcp" Version="4.9.*" />
-        <PackageReference Include="System.ServiceModel.Primitives" Version="4.9.*" />
-        <PackageReference Include="System.ServiceModel.Security" Version="4.9.*" />
+        <PackageReference Include="System.ServiceModel.Duplex" Version="4.10.*" />
+        <PackageReference Include="System.ServiceModel.Http" Version="4.10.*" />
+        <PackageReference Include="System.ServiceModel.NetTcp" Version="4.10.*" />
+        <PackageReference Include="System.ServiceModel.Primitives" Version="4.10.*" />
+        <PackageReference Include="System.ServiceModel.Security" Version="4.10.*" />
     </ItemGroup>
     <ItemGroup Condition="'$(TargetFramework)' == 'net452'">
         <Reference Include="System.ServiceModel" />
         <Reference Include="System.Net.Http" />
-        <Reference Include="System.Web"/>
+        <Reference Include="System.Web" />
     </ItemGroup>
 
     <ItemGroup>

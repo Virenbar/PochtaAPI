@@ -1,16 +1,16 @@
 ﻿site_name: Документация PochtaAPI
 site_description: "Библиотека для работы с API Почты России"
 site_url: https://virenbar.ru/PochtaAPI/
-copyright: Copyright &copy; 2022 Virenbar
+copyright: Copyright &copy; 2023 Virenbar
 theme:
   logo: assets/images/logo.png
   favicon: assets/images/favicon.ico
   language: ru
   features:
     - navigation.instant
-    - navigation.top
+    - navigation.tabs
     - navigation.sections
-    - navigation.indexes
+    - navigation.top
   font:
     text: "Fira Sans"
     code: "Fira Code"
@@ -29,8 +29,14 @@ theme:
   custom_dir: overrides
 extra:
   social:
-    - icon: fontawesome/brands/github
+    - icon: material/email-newsletter
+      link: https://www.pochta.ru/
+      name: Сайт Почты России
+    - icon: simple/github
       link: https://github.com/Virenbar/PochtaAPI
+  analytics:
+    provider: yandex
+    property: 87731504
   # analytics:
   #   provider: google
   #   property: G-XXXXXXXXXX
@@ -40,7 +46,6 @@ repo_name: "Virenbar/PochtaAPI"
 repo_url: https://github.com/Virenbar/PochtaAPI
 edit_uri: edit/master/docs/
 markdown_extensions:
-  - meta
   - admonition
   - pymdownx.highlight
   - pymdownx.inlinehilite
@@ -48,18 +53,18 @@ markdown_extensions:
   - attr_list
   - toc:
       permalink: "#"
+      slugify: !!python/object/apply:pymdownx.slugs.slugify
+        kwds:
+          case: lower
 plugins:
   - search:
       lang:
         - en
         - ru
 nav:
-  - index.md
+  - Описание: index.md
   - PochtaAPI:
       - Авторизация: authorization.md
       - Отслеживание: tracking.md
       - Отправка(WIP): otpravka.md
-  - Ссылки:
-      - Почта России: "https://www.pochta.ru/"
-      - API Отслеживание: "https://tracking.pochta.ru/specification"
-      - API Отправка: "https://otpravka.pochta.ru/specification#/main"
+  - Ссылки: links.md

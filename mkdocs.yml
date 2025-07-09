@@ -1,7 +1,7 @@
 ﻿site_name: Документация PochtaAPI
 site_description: "Библиотека для работы с API Почты России"
 site_url: https://virenbar.ru/PochtaAPI/
-copyright: Copyright &copy; 2023 Virenbar
+copyright: Copyright &copy; 2025 Virenbar
 theme:
   logo: assets/images/logo.png
   favicon: assets/images/favicon.ico

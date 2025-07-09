@@ -1,8 +1,11 @@
 name: Build Artifact
-
 on:
   push:
     branches: [master]
+    paths-ignore:
+      - "**.md"
+      - "**.yml"
+      - "docs/**"
   pull_request:
     branches: [master]
   workflow_call:
@@ -25,12 +28,12 @@ jobs:
       version: ${{steps.version.outputs.version}}
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Install .NET
-        uses: actions/setup-dotnet@v3
+      - name: Install .NET Core
+        uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 6.x
 
@@ -38,8 +41,11 @@ jobs:
         id: version
         run: .\.github\scripts\version.ps1
 
-      - name: Setup MSBuild.exe
-        uses: microsoft/setup-msbuild@v1.1
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Restore packages
+        run: nuget restore
 
       - name: Restore solution
         run: msbuild $env:SolutionName /t:Restore /p:Configuration=$env:Configuration
@@ -53,7 +59,7 @@ jobs:
 
       - name: Upload artifact
         if: matrix.configuration == 'Release'
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: PochtaAPI
           path: '**\*.nupkg'

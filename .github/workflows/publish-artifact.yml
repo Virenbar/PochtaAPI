@@ -11,16 +11,18 @@ jobs:
     runs-on: windows-latest
     needs: build
     steps:
-      - name: Setup MSBuild.exe
-        uses: microsoft/setup-msbuild@v1.1
+      - name: Install .NET Core
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 6.x
 
       - name: Download artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: PochtaAPI
 
-      - name: LS
+      - name: List files
         run: ls -R
 
-      - name: Push NuGet
-        run: nuget push **\*.nupkg -Source 'https://api.nuget.org/v3/index.json' -ApiKey ${{secrets.NUGETKEY}}
+      - name: Push - NuGet
+        run: dotnet nuget push **\*.nupkg -s 'https://api.nuget.org/v3/index.json' -k ${{secrets.NUGETKEY}} --skip-duplicate
